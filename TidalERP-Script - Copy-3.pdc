@@ -1,0 +1,3586 @@
+
+prompt
+prompt Creating table TK_CLAIM_ASSESSMENT_DOCUMENT_T
+prompt =============================================
+prompt
+create table TK_CLAIM_ASSESSMENT_DOCUMENT_T
+(
+  org_id           NUMBER not null,
+  branch_id        VARCHAR2(10) not null,
+  sub_product_code VARCHAR2(10) not null,
+  claim_no         VARCHAR2(10) not null,
+  benefit_code     VARCHAR2(2) not null,
+  claim_year       VARCHAR2(4) not null,
+  assessment_id    NUMBER not null,
+  requirement_code NUMBER not null,
+  file_name        VARCHAR2(50),
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE,
+  application_id   NUMBER not null,
+  status           VARCHAR2(1)
+)
+;
+alter table TK_CLAIM_ASSESSMENT_DOCUMENT_T
+  add constraint PK_CLAIM_ASSESSMENT_DOCUMENT primary key (ORG_ID, BRANCH_ID, SUB_PRODUCT_CODE, CLAIM_NO, APPLICATION_ID, BENEFIT_CODE, ASSESSMENT_ID, CLAIM_YEAR, REQUIREMENT_CODE);
+
+prompt
+prompt Creating table TK_CLAIM_ASSESSMENT_HISTORY_T
+prompt ============================================
+prompt
+create table TK_CLAIM_ASSESSMENT_HISTORY_T
+(
+  org_id            NUMBER not null,
+  branch_id         VARCHAR2(10) not null,
+  sub_product_code  VARCHAR2(10) not null,
+  claim_no          VARCHAR2(10) not null,
+  benefit_code      VARCHAR2(2) not null,
+  assessment_id     NUMBER not null,
+  application_id    NUMBER not null,
+  code              NUMBER not null,
+  assessment_status VARCHAR2(2),
+  created_by        VARCHAR2(50),
+  creation_date     DATE,
+  last_updated_by   VARCHAR2(50),
+  last_update_date  DATE,
+  description       VARCHAR2(400),
+  claim_year        VARCHAR2(4) not null
+)
+;
+alter table TK_CLAIM_ASSESSMENT_HISTORY_T
+  add constraint PK_TKASSESSMENT_HISTORY_T primary key (ORG_ID, BRANCH_ID, SUB_PRODUCT_CODE, CLAIM_NO, APPLICATION_ID, BENEFIT_CODE, ASSESSMENT_ID, CODE, CLAIM_YEAR);
+
+prompt
+prompt Creating table TK_CLAIM_ASSESSMENT_T
+prompt ====================================
+prompt
+create table TK_CLAIM_ASSESSMENT_T
+(
+  org_id                    NUMBER not null,
+  branch_id                 VARCHAR2(10) not null,
+  sub_product_code          VARCHAR2(10) not null,
+  claim_no                  VARCHAR2(10) not null,
+  benefit_code              VARCHAR2(2) not null,
+  assessment_id             NUMBER not null,
+  notes                     VARCHAR2(1000),
+  assessment_date           DATE,
+  file_name                 VARCHAR2(60),
+  assessment_status         VARCHAR2(2),
+  created_by                VARCHAR2(50),
+  creation_date             DATE,
+  last_updated_by           VARCHAR2(50),
+  last_update_date          DATE,
+  application_id            NUMBER not null,
+  assessment_amount         NUMBER,
+  claim_cancellation_reason NUMBER,
+  paycon_no                 NUMBER,
+  installment_type          VARCHAR2(10),
+  excess_amount             NUMBER,
+  retention_claim_amount    NUMBER,
+  quota_share_amount        NUMBER,
+  claim_year                VARCHAR2(4) not null,
+  cancel_by                 VARCHAR2(50),
+  cancel_date               DATE,
+  additional_payment        VARCHAR2(1),
+  claim_decline_reason      NUMBER
+)
+;
+alter table TK_CLAIM_ASSESSMENT_T
+  add constraint PK_TK_CLAIM_ASSESSMENT_T primary key (ORG_ID, BRANCH_ID, SUB_PRODUCT_CODE, CLAIM_NO, APPLICATION_ID, BENEFIT_CODE, ASSESSMENT_ID, CLAIM_YEAR);
+
+prompt
+prompt Creating table TK_CLAIM_ASS_REQUIRED_DOCS_T
+prompt ===========================================
+prompt
+create table TK_CLAIM_ASS_REQUIRED_DOCS_T
+(
+  org_id           NUMBER not null,
+  branch_id        VARCHAR2(10) not null,
+  sub_product_code VARCHAR2(10) not null,
+  claim_no         VARCHAR2(10) not null,
+  benefit_code     VARCHAR2(2) not null,
+  claim_year       VARCHAR2(4) not null,
+  assessment_id    NUMBER not null,
+  requirement_code NUMBER not null,
+  requirement_name VARCHAR2(50),
+  requirement_desc VARCHAR2(500),
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE,
+  application_id   NUMBER not null
+)
+;
+alter table TK_CLAIM_ASS_REQUIRED_DOCS_T
+  add constraint PK_CLAIM_ASS_REQUIRED_DOCS primary key (ORG_ID, BRANCH_ID, SUB_PRODUCT_CODE, CLAIM_NO, APPLICATION_ID, BENEFIT_CODE, ASSESSMENT_ID, CLAIM_YEAR, REQUIREMENT_CODE);
+
+prompt
+prompt Creating table TK_CLAIM_ATTACHMENT_T
+prompt ====================================
+prompt
+create table TK_CLAIM_ATTACHMENT_T
+(
+  org_id           NUMBER not null,
+  branch_id        VARCHAR2(10) not null,
+  sub_product_code VARCHAR2(10) not null,
+  claim_no         VARCHAR2(10) not null,
+  application_id   NUMBER not null,
+  claim_year       VARCHAR2(5) not null,
+  attachment_code  NUMBER not null,
+  file_path        VARCHAR2(300),
+  attachment_desc  VARCHAR2(500),
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE
+)
+;
+alter table TK_CLAIM_ATTACHMENT_T
+  add constraint PK_TK_CLAIM_ATTACH primary key (ORG_ID, BRANCH_ID, SUB_PRODUCT_CODE, CLAIM_NO, APPLICATION_ID, CLAIM_YEAR, ATTACHMENT_CODE);
+
+prompt
+prompt Creating table TK_CLAIM_BENEFITS_T
+prompt ==================================
+prompt
+create table TK_CLAIM_BENEFITS_T
+(
+  org_id                      NUMBER not null,
+  branch_id                   VARCHAR2(10) not null,
+  sub_product_code            VARCHAR2(10) not null,
+  claim_no                    VARCHAR2(10) not null,
+  benefit_code                NUMBER not null,
+  sum_insured                 NUMBER,
+  claim_amount                NUMBER,
+  created_by                  VARCHAR2(50),
+  creation_date               DATE,
+  last_updated_by             VARCHAR2(50),
+  last_update_date            DATE,
+  claim_benefit_status        VARCHAR2(50),
+  application_id              NUMBER not null,
+  retakaful_id                NUMBER,
+  reinsurer_code              NUMBER,
+  treaty_code                 NUMBER,
+  claim_year                  VARCHAR2(4) not null,
+  intimation_amount           NUMBER,
+  retention_claim_amount      NUMBER,
+  quota_share_amount          NUMBER,
+  excess_amount               NUMBER,
+  retention_intimation_amount NUMBER,
+  quota_intimation_amount     NUMBER,
+  additional_payment          VARCHAR2(1),
+  manual_tag                  VARCHAR2(1),
+  advice_reference_no         VARCHAR2(20),
+  rev_advice_reference_no     VARCHAR2(20),
+  claim_amount_orig           NUMBER,
+  outstanding_amount          NUMBER,
+  ptf_amount                  NUMBER,
+  total_cash_value            NUMBER
+)
+;
+alter table TK_CLAIM_BENEFITS_T
+  add constraint PK_CL_TK_BENEFIT_T primary key (ORG_ID, BRANCH_ID, SUB_PRODUCT_CODE, CLAIM_NO, APPLICATION_ID, BENEFIT_CODE, CLAIM_YEAR);
+
+prompt
+prompt Creating table TK_CLAIM_CASE_MANAGEMENT_T
+prompt =========================================
+prompt
+create table TK_CLAIM_CASE_MANAGEMENT_T
+(
+  org_id           NUMBER not null,
+  branch_id        VARCHAR2(10) not null,
+  sub_product_code VARCHAR2(10) not null,
+  claim_no         VARCHAR2(30) not null,
+  application_id   NUMBER not null,
+  claim_year       VARCHAR2(4) not null,
+  serial_code      NUMBER not null,
+  log_date         DATE,
+  attachment_path  VARCHAR2(200),
+  comments         VARCHAR2(1500),
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE,
+  running_bill     NUMBER
+)
+;
+alter table TK_CLAIM_CASE_MANAGEMENT_T
+  add constraint PK_CL_CASE_MNG primary key (ORG_ID, BRANCH_ID, SUB_PRODUCT_CODE, CLAIM_NO, APPLICATION_ID, CLAIM_YEAR, SERIAL_CODE);
+
+prompt
+prompt Creating table TK_CLAIM_COMMITTE_DECISION_T
+prompt ===========================================
+prompt
+create table TK_CLAIM_COMMITTE_DECISION_T
+(
+  org_id             NUMBER not null,
+  branch_id          VARCHAR2(10) not null,
+  sub_product_code   VARCHAR2(10) not null,
+  claim_no           VARCHAR2(10) not null,
+  benefit_code       NUMBER not null,
+  assessment_id      NUMBER not null,
+  c_decision_id      NUMBER not null,
+  decision_date      DATE,
+  decision_value     VARCHAR2(500),
+  decision_status    VARCHAR2(2),
+  created_by         VARCHAR2(50),
+  creation_date      DATE,
+  last_updated_by    VARCHAR2(50),
+  last_update_date   DATE,
+  application_id     NUMBER not null,
+  submission_date    DATE,
+  claim_year         VARCHAR2(4) not null,
+  cd_attachment_file VARCHAR2(50)
+)
+;
+alter table TK_CLAIM_COMMITTE_DECISION_T
+  add constraint PK_TK_CLAIM_COMMITTE_DEC_T primary key (ORG_ID, BRANCH_ID, SUB_PRODUCT_CODE, CLAIM_NO, APPLICATION_ID, BENEFIT_CODE, ASSESSMENT_ID, C_DECISION_ID, CLAIM_YEAR);
+
+prompt
+prompt Creating table TK_CLAIM_INTERNAL_AUDIT_T
+prompt ========================================
+prompt
+create table TK_CLAIM_INTERNAL_AUDIT_T
+(
+  org_id                NUMBER not null,
+  appication_id         NUMBER,
+  branch_id             VARCHAR2(10) not null,
+  sub_product_code      VARCHAR2(10) not null,
+  application_id        NUMBER not null,
+  claim_no              VARCHAR2(10) not null,
+  claim_year            VARCHAR2(4) not null,
+  benefit_code          NUMBER not null,
+  assessment_id         NUMBER not null,
+  audit_id              NUMBER not null,
+  decision_status       VARCHAR2(2),
+  decision_date         DATE,
+  remarks               VARCHAR2(1000),
+  submission_date       DATE,
+  audit_attachment_file VARCHAR2(100),
+  created_by            VARCHAR2(50),
+  creation_date         DATE,
+  last_updated_by       VARCHAR2(50),
+  last_update_date      DATE
+)
+;
+alter table TK_CLAIM_INTERNAL_AUDIT_T
+  add constraint PK_CLAIM_INTERNAL_AUDIT_T primary key (ORG_ID, BRANCH_ID, SUB_PRODUCT_CODE, CLAIM_NO, APPLICATION_ID, CLAIM_YEAR, AUDIT_ID, BENEFIT_CODE, ASSESSMENT_ID);
+
+prompt
+prompt Creating table TK_CLAIM_INTIMATION_ATTACH_T
+prompt ===========================================
+prompt
+create table TK_CLAIM_INTIMATION_ATTACH_T
+(
+  org_id           NUMBER not null,
+  branch_id        VARCHAR2(10) not null,
+  sub_product_code VARCHAR2(10) not null,
+  claim_no         VARCHAR2(10) not null,
+  application_id   NUMBER not null,
+  claim_year       VARCHAR2(5) not null,
+  attachment_code  NUMBER not null,
+  file_path        VARCHAR2(300),
+  attachment_desc  VARCHAR2(500),
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE
+)
+;
+alter table TK_CLAIM_INTIMATION_ATTACH_T
+  add constraint PK_TK_CLAIM_INT_ATTACH primary key (ORG_ID, BRANCH_ID, SUB_PRODUCT_CODE, CLAIM_NO, APPLICATION_ID, CLAIM_YEAR, ATTACHMENT_CODE);
+
+prompt
+prompt Creating table TK_CLAIM_INTIMATION_T
+prompt ====================================
+prompt
+create table TK_CLAIM_INTIMATION_T
+(
+  org_id                   NUMBER not null,
+  branch_id                VARCHAR2(10) not null,
+  sub_product_code         NUMBER not null,
+  claim_no                 VARCHAR2(10) not null,
+  claim_reference_no       VARCHAR2(50),
+  reported_by              VARCHAR2(50),
+  policy_holder            VARCHAR2(50),
+  issue_date               DATE,
+  reporting_date           DATE,
+  event_date               DATE,
+  admission_date           DATE,
+  discharge_date           DATE,
+  event_place              VARCHAR2(200),
+  policy_no                VARCHAR2(50),
+  insured_id               NUMBER,
+  loss_type                NUMBER,
+  loss_nature              VARCHAR2(20),
+  cause_of_loss            NUMBER,
+  cause_detail             VARCHAR2(200),
+  remarks                  VARCHAR2(4000),
+  insured_address          VARCHAR2(200),
+  claim_status             VARCHAR2(10),
+  created_by               VARCHAR2(50),
+  creation_date            DATE,
+  last_updated_by          VARCHAR2(50),
+  last_update_date         DATE,
+  post_tag                 VARCHAR2(1),
+  post_by                  VARCHAR2(100),
+  post_date                DATE,
+  application_id           NUMBER not null,
+  reported_email           VARCHAR2(70),
+  reported_relation        VARCHAR2(200),
+  reported_cnic            VARCHAR2(20),
+  reported_mob_nm          VARCHAR2(20),
+  endorsement_no           NUMBER,
+  claim_request_no         VARCHAR2(100),
+  reopen_reason            NUMBER,
+  last_active_at_work_date DATE,
+  last_salary_paid_date    DATE,
+  intimation_source        VARCHAR2(20),
+  re_open_date             DATE,
+  total_days               NUMBER,
+  event_country            VARCHAR2(5),
+  event_state              VARCHAR2(7),
+  proximate_cause          VARCHAR2(150),
+  district                 VARCHAR2(150),
+  fax_no                   VARCHAR2(100),
+  item_cnic_no             VARCHAR2(13),
+  reopened_benefit         VARCHAR2(100),
+  claim_year               VARCHAR2(4) not null,
+  employee_id              NUMBER,
+  claim_type               VARCHAR2(20),
+  claim_pool               VARCHAR2(20),
+  hospital_type            VARCHAR2(10),
+  panel_hospital           VARCHAR2(50),
+  non_panel_hospital       VARCHAR2(200),
+  reporting_time           VARCHAR2(15),
+  claim_payment_type       VARCHAR2(20),
+  issue_count              NUMBER,
+  insured_name_reported    VARCHAR2(50)
+)
+;
+alter table TK_CLAIM_INTIMATION_T
+  add constraint PK_CL_TK_CLAIM_INTEMATION_T primary key (ORG_ID, BRANCH_ID, SUB_PRODUCT_CODE, CLAIM_NO, APPLICATION_ID, CLAIM_YEAR);
+
+prompt
+prompt Creating table TK_CLAIM_INVESTIGATOR_SETT_T
+prompt ===========================================
+prompt
+create table TK_CLAIM_INVESTIGATOR_SETT_T
+(
+  org_id           NUMBER not null,
+  branch_id        VARCHAR2(10) not null,
+  sub_product_code VARCHAR2(10) not null,
+  claim_no         VARCHAR2(10) not null,
+  inverigator_code VARCHAR2(10) not null,
+  settlement_id    NUMBER not null,
+  amount           NUMBER,
+  settl_date       DATE,
+  payee_name       VARCHAR2(60),
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE,
+  application_id   NUMBER not null
+)
+;
+alter table TK_CLAIM_INVESTIGATOR_SETT_T
+  add constraint PK_TK_INVST_SETT_T primary key (ORG_ID, BRANCH_ID, SUB_PRODUCT_CODE, CLAIM_NO, APPLICATION_ID, INVERIGATOR_CODE, SETTLEMENT_ID);
+
+prompt
+prompt Creating table TK_CLAIM_INVESTIGATOR_T
+prompt ======================================
+prompt
+create table TK_CLAIM_INVESTIGATOR_T
+(
+  org_id            NUMBER not null,
+  branch_id         VARCHAR2(10) not null,
+  sub_product_code  VARCHAR2(10) not null,
+  claim_no          VARCHAR2(10) not null,
+  serial_code       NUMBER not null,
+  investigator_code VARCHAR2(10) not null,
+  appointment_date  DATE,
+  file_name         VARCHAR2(60),
+  submission_status VARCHAR2(2),
+  created_by        VARCHAR2(50),
+  creation_date     DATE,
+  last_updated_by   VARCHAR2(50),
+  last_update_date  DATE,
+  application_id    NUMBER not null,
+  benefit_code      NUMBER not null,
+  assessment_id     NUMBER not null,
+  submission_date   DATE,
+  claim_year        VARCHAR2(4) not null
+)
+;
+alter table TK_CLAIM_INVESTIGATOR_T
+  add constraint PK_CLAIM_INVESTIGATOR_ID primary key (ORG_ID, BRANCH_ID, SUB_PRODUCT_CODE, CLAIM_NO, SERIAL_CODE, INVESTIGATOR_CODE, APPLICATION_ID, BENEFIT_CODE, ASSESSMENT_ID, CLAIM_YEAR);
+
+prompt
+prompt Creating table TK_CLAIM_LITIGATION_T
+prompt ====================================
+prompt
+create table TK_CLAIM_LITIGATION_T
+(
+  org_id           NUMBER not null,
+  branch_id        VARCHAR2(10) not null,
+  sub_product_code VARCHAR2(10) not null,
+  claim_no         VARCHAR2(10) not null,
+  application_id   NUMBER not null,
+  litigation_code  NUMBER not null,
+  notice_date      DATE,
+  forum_name       VARCHAR2(100),
+  country          VARCHAR2(10),
+  state            VARCHAR2(10),
+  city             VARCHAR2(10),
+  assigned_to      VARCHAR2(30),
+  assigned_date    DATE,
+  status           VARCHAR2(30),
+  remarks          VARCHAR2(500),
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE,
+  claim_year       VARCHAR2(4) not null
+)
+;
+alter table TK_CLAIM_LITIGATION_T
+  add constraint PK_TK_CLAIM_LIT primary key (ORG_ID, BRANCH_ID, SUB_PRODUCT_CODE, CLAIM_NO, APPLICATION_ID, LITIGATION_CODE, CLAIM_YEAR);
+
+prompt
+prompt Creating table TK_CLAIM_LITI_REIMBURS_T
+prompt =======================================
+prompt
+create table TK_CLAIM_LITI_REIMBURS_T
+(
+  org_id           NUMBER not null,
+  branch_id        VARCHAR2(10) not null,
+  sub_product_code VARCHAR2(10) not null,
+  claim_no         VARCHAR2(10) not null,
+  application_id   NUMBER not null,
+  litigation_code  NUMBER not null,
+  serial_code      NUMBER not null,
+  claim_amount     NUMBER,
+  status           VARCHAR2(3),
+  approve_amount   NUMBER,
+  settlement_date  DATE,
+  remarks          VARCHAR2(150),
+  payee_name       VARCHAR2(50),
+  voucher_no       VARCHAR2(10),
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE,
+  payment_source   VARCHAR2(5),
+  claim_year       VARCHAR2(4) not null
+)
+;
+alter table TK_CLAIM_LITI_REIMBURS_T
+  add constraint PK_TK_LIT_REIMBR_T primary key (ORG_ID, BRANCH_ID, SUB_PRODUCT_CODE, CLAIM_NO, APPLICATION_ID, LITIGATION_CODE, SERIAL_CODE, CLAIM_YEAR);
+
+prompt
+prompt Creating table TK_CLAIM_REGIS_DOCUMENTS_T
+prompt =========================================
+prompt
+create table TK_CLAIM_REGIS_DOCUMENTS_T
+(
+  org_id           NUMBER not null,
+  branch_id        VARCHAR2(10) not null,
+  sub_product_code VARCHAR2(10) not null,
+  claim_no         VARCHAR2(10) not null,
+  application_id   NUMBER not null,
+  attachment_code  NUMBER not null,
+  file_path        VARCHAR2(100),
+  attachment_desc  VARCHAR2(100),
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE,
+  status           VARCHAR2(2),
+  remarks          VARCHAR2(100),
+  receive_date     DATE,
+  claim_year       VARCHAR2(4) not null
+)
+;
+alter table TK_CLAIM_REGIS_DOCUMENTS_T
+  add constraint PK_TK_CLAIM_REGIS_DOC primary key (ORG_ID, BRANCH_ID, SUB_PRODUCT_CODE, CLAIM_NO, APPLICATION_ID, ATTACHMENT_CODE, CLAIM_YEAR);
+
+prompt
+prompt Creating table TK_CLAIM_REQUEST_BENEFITS_T
+prompt ==========================================
+prompt
+create table TK_CLAIM_REQUEST_BENEFITS_T
+(
+  org_id               NUMBER not null,
+  branch_id            VARCHAR2(10) not null,
+  sub_product_code     VARCHAR2(10) not null,
+  claim_no             VARCHAR2(30) not null,
+  application_id       NUMBER not null,
+  benefit_code         NUMBER not null,
+  created_by           VARCHAR2(50),
+  creation_date        DATE,
+  last_updated_by      VARCHAR2(50),
+  last_update_date     DATE,
+  scheme_list          VARCHAR2(50),
+  percentage           NUMBER,
+  claim_year           VARCHAR2(4) not null,
+  initial_claim_amount NUMBER,
+  manual_tag           VARCHAR2(1),
+  claim_amount_orig    NUMBER,
+  outstanding_amount   NUMBER,
+  ptf_amount           NUMBER,
+  file_name            VARCHAR2(50),
+  total_cash_value     NUMBER
+)
+;
+alter table TK_CLAIM_REQUEST_BENEFITS_T
+  add constraint PK_CL_REQ_BENEFIT_T primary key (ORG_ID, BRANCH_ID, SUB_PRODUCT_CODE, CLAIM_NO, APPLICATION_ID, BENEFIT_CODE, CLAIM_YEAR);
+
+prompt
+prompt Creating table TK_CLAIM_REQ_DOCUMENTS_T
+prompt =======================================
+prompt
+create table TK_CLAIM_REQ_DOCUMENTS_T
+(
+  org_id           NUMBER not null,
+  branch_id        VARCHAR2(10) not null,
+  sub_product_code VARCHAR2(10) not null,
+  claim_no         VARCHAR2(10) not null,
+  application_id   NUMBER not null,
+  attachment_code  NUMBER not null,
+  file_path        VARCHAR2(100),
+  attachment_desc  VARCHAR2(100),
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE,
+  status           VARCHAR2(2),
+  remarks          VARCHAR2(100),
+  receive_date     DATE,
+  claim_year       VARCHAR2(4) not null
+)
+;
+alter table TK_CLAIM_REQ_DOCUMENTS_T
+  add constraint PK_TK_CLAIM_DOC primary key (ORG_ID, BRANCH_ID, SUB_PRODUCT_CODE, CLAIM_NO, APPLICATION_ID, ATTACHMENT_CODE, CLAIM_YEAR);
+
+prompt
+prompt Creating table TK_CLAIM_RESERVE_BEN_DIST_T
+prompt ==========================================
+prompt
+create table TK_CLAIM_RESERVE_BEN_DIST_T
+(
+  org_id           NUMBER not null,
+  branch_id        VARCHAR2(10) not null,
+  sub_product_code VARCHAR2(10) not null,
+  claim_no         VARCHAR2(10) not null,
+  reserve_id       NUMBER not null,
+  benefit_code     NUMBER not null,
+  reserve_dist_id  NUMBER not null,
+  benefit_amount   NUMBER,
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE,
+  application_id   NUMBER not null
+)
+;
+alter table TK_CLAIM_RESERVE_BEN_DIST_T
+  add constraint PK_TK_RESERVE_DIST_T primary key (ORG_ID, BRANCH_ID, SUB_PRODUCT_CODE, CLAIM_NO, APPLICATION_ID, RESERVE_ID, BENEFIT_CODE, RESERVE_DIST_ID);
+
+prompt
+prompt Creating table TK_CLAIM_RESERVE_T
+prompt =================================
+prompt
+create table TK_CLAIM_RESERVE_T
+(
+  org_id           NUMBER not null,
+  branch_id        VARCHAR2(10) not null,
+  sub_product_code VARCHAR2(10) not null,
+  claim_no         VARCHAR2(10) not null,
+  reserve_id       NUMBER not null,
+  reserve_amount   NUMBER,
+  reserve_date     DATE,
+  reserve_type     VARCHAR2(20),
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE,
+  post_tag         VARCHAR2(1),
+  post_by          VARCHAR2(100),
+  post_date        DATE,
+  application_id   NUMBER not null,
+  benefit_code     NUMBER not null,
+  assessment_id    NUMBER
+)
+;
+alter table TK_CLAIM_RESERVE_T
+  add constraint PK_TK_CLAIM_RESERVE_T primary key (ORG_ID, BRANCH_ID, SUB_PRODUCT_CODE, CLAIM_NO, RESERVE_ID, APPLICATION_ID, BENEFIT_CODE);
+
+prompt
+prompt Creating table TK_CLAIM_SETTLEMENT_T
+prompt ====================================
+prompt
+create table TK_CLAIM_SETTLEMENT_T
+(
+  org_id                     NUMBER not null,
+  branch_id                  VARCHAR2(10) not null,
+  sub_product_code           VARCHAR2(10) not null,
+  claim_no                   VARCHAR2(10) not null,
+  settlement_id              NUMBER not null,
+  settlement_amount          NUMBER,
+  settlement_date            DATE,
+  payee_name                 VARCHAR2(60),
+  created_by                 VARCHAR2(50),
+  creation_date              DATE,
+  last_updated_by            VARCHAR2(50),
+  last_update_date           DATE,
+  post_tag                   VARCHAR2(1),
+  post_by                    VARCHAR2(100),
+  post_date                  DATE,
+  application_id             NUMBER not null,
+  benefit_code               NUMBER not null,
+  payee_type                 VARCHAR2(2),
+  system_generated           VARCHAR2(1),
+  voucher_no                 VARCHAR2(50),
+  exgratia_tag               VARCHAR2(30),
+  payment_source             VARCHAR2(5),
+  branch_type                VARCHAR2(1),
+  policy_holder_payee        VARCHAR2(5),
+  assessment_id              NUMBER,
+  excess_amount              NUMBER,
+  retention_claim_amount     NUMBER,
+  quota_share_amount         NUMBER,
+  remarks                    VARCHAR2(150),
+  claim_year                 VARCHAR2(4) not null,
+  full_and_final_tag         VARCHAR2(1),
+  reverse_tag                VARCHAR2(1),
+  reverse_by                 VARCHAR2(50),
+  reverse_date               DATE,
+  employee_id                NUMBER,
+  beneficiary_code           NUMBER,
+  settlement_attachment_file VARCHAR2(50),
+  advice_reference_no        VARCHAR2(20),
+  rev_advice_reference_no    VARCHAR2(20)
+)
+;
+alter table TK_CLAIM_SETTLEMENT_T
+  add constraint PK_TK_CLAIM_SETTLEMENT_T primary key (ORG_ID, BRANCH_ID, SUB_PRODUCT_CODE, CLAIM_NO, SETTLEMENT_ID, APPLICATION_ID, BENEFIT_CODE, CLAIM_YEAR);
+
+prompt
+prompt Creating table TK_CLAIM_SETT_BNF_DIST_T
+prompt =======================================
+prompt
+create table TK_CLAIM_SETT_BNF_DIST_T
+(
+  org_id             NUMBER not null,
+  branch_id          VARCHAR2(10) not null,
+  sub_product_code   VARCHAR2(10) not null,
+  claim_no           VARCHAR2(10) not null,
+  settlement_id      NUMBER not null,
+  benefit_code       NUMBER not null,
+  settlement_dist_id NUMBER not null,
+  benefit_amount     NUMBER,
+  created_by         VARCHAR2(50),
+  creation_date      DATE,
+  last_updated_by    VARCHAR2(50),
+  last_update_date   DATE,
+  application_id     NUMBER not null
+)
+;
+alter table TK_CLAIM_SETT_BNF_DIST_T
+  add constraint PK_TK_SETTL_DIST_T primary key (ORG_ID, BRANCH_ID, SUB_PRODUCT_CODE, CLAIM_NO, APPLICATION_ID, SETTLEMENT_ID, BENEFIT_CODE, SETTLEMENT_DIST_ID);
+
+prompt
+prompt Creating table TK_CLAIM_VALID_CHECKLIST_T
+prompt =========================================
+prompt
+create table TK_CLAIM_VALID_CHECKLIST_T
+(
+  org_id           NUMBER not null,
+  branch_id        VARCHAR2(10) not null,
+  sub_product_code VARCHAR2(10) not null,
+  claim_no         VARCHAR2(10) not null,
+  application_id   NUMBER not null,
+  checklist_code   VARCHAR2(3) not null,
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE,
+  claim_year       VARCHAR2(4) not null
+)
+;
+alter table TK_CLAIM_VALID_CHECKLIST_T
+  add constraint PK_CLAIM_CHECKLIST primary key (ORG_ID, BRANCH_ID, SUB_PRODUCT_CODE, CLAIM_NO, APPLICATION_ID, CHECKLIST_CODE, CLAIM_YEAR);
+
+prompt
+prompt Creating table TK_CLAUSES_SETUP_T
+prompt =================================
+prompt
+create table TK_CLAUSES_SETUP_T
+(
+  org_id           NUMBER not null,
+  b_class_code     VARCHAR2(10) not null,
+  clause_code      VARCHAR2(10) not null,
+  clause_desc      VARCHAR2(500),
+  active           VARCHAR2(1),
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE,
+  clause_text      VARCHAR2(4000)
+)
+;
+alter table TK_CLAUSES_SETUP_T
+  add constraint PK_TK_CLAUSES_SETUP_T primary key (ORG_ID, B_CLASS_CODE, CLAUSE_CODE);
+alter table TK_CLAUSES_SETUP_T
+  add constraint FK_CLAUSE_BCLASS foreign key (ORG_ID, B_CLASS_CODE)
+  references TK_BUS_CLASS_SETUP_T (ORG_ID, B_CLASS_CODE);
+alter table TK_CLAUSES_SETUP_T
+  add constraint FK_ORG_CLAUSE foreign key (ORG_ID)
+  references TK_ORGANIZATION_SETUP_T (ORG_ID);
+
+prompt
+prompt Creating table TK_COMMISSION_SLAB_T
+prompt ===================================
+prompt
+create table TK_COMMISSION_SLAB_T
+(
+  org_id            NUMBER not null,
+  application_id    NUMBER not null,
+  slab_id           NUMBER not null,
+  from_size         NUMBER,
+  to_size           NUMBER not null,
+  created_by        VARCHAR2(50),
+  creation_date     DATE,
+  last_updated_by   VARCHAR2(50),
+  last_update_date  DATE,
+  main_product_code NUMBER not null,
+  sub_product_code  NUMBER not null
+)
+;
+alter table TK_COMMISSION_SLAB_T
+  add constraint TK_COMMISION_SLAB_T_PK primary key (ORG_ID, APPLICATION_ID, SLAB_ID, SUB_PRODUCT_CODE, MAIN_PRODUCT_CODE);
+
+prompt
+prompt Creating table TK_COMM_SLAB_DTL_T
+prompt =================================
+prompt
+create table TK_COMM_SLAB_DTL_T
+(
+  org_id            NUMBER not null,
+  application_id    NUMBER not null,
+  main_product_code NUMBER not null,
+  sub_product_code  NUMBER not null,
+  slab_id           NUMBER not null,
+  level_id          NUMBER not null,
+  agency_type       VARCHAR2(2) not null,
+  comm_percentage   NUMBER,
+  comm_type         VARCHAR2(1),
+  created_by        VARCHAR2(50),
+  creation_date     DATE,
+  last_updated_by   VARCHAR2(50),
+  last_update_date  DATE
+)
+;
+alter table TK_COMM_SLAB_DTL_T
+  add constraint TK_COMM_SLAB_DTL_T_PK primary key (LEVEL_ID, SLAB_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, APPLICATION_ID, ORG_ID);
+
+prompt
+prompt Creating table TK_CONDITION_SETUP_T
+prompt ===================================
+prompt
+create table TK_CONDITION_SETUP_T
+(
+  cn_code           NUMBER not null,
+  cn_desc           VARCHAR2(50),
+  active            VARCHAR2(1),
+  cn_text_quotation VARCHAR2(4000),
+  cn_text_policy    VARCHAR2(4000),
+  print_order       NUMBER,
+  created_by        VARCHAR2(50),
+  creation_date     DATE,
+  last_updated_by   VARCHAR2(50),
+  last_update_date  DATE,
+  org_id            NUMBER not null
+)
+;
+alter table TK_CONDITION_SETUP_T
+  add constraint TK_CONDITION_SETUP_T_PK primary key (CN_CODE, ORG_ID);
+
+prompt
+prompt Creating table TK_SUB_CLASS_SETUP_T
+prompt ===================================
+prompt
+create table TK_SUB_CLASS_SETUP_T
+(
+  org_id            NUMBER not null,
+  b_class_code      VARCHAR2(10) not null,
+  sub_class_code    VARCHAR2(10) not null,
+  sub_class_desc    VARCHAR2(500),
+  premium_rate      NUMBER(9,6),
+  active            VARCHAR2(1),
+  created_by        VARCHAR2(50),
+  creation_date     DATE,
+  last_updated_by   VARCHAR2(50),
+  last_update_date  DATE,
+  short_description VARCHAR2(500),
+  admin_charges     NUMBER,
+  flat_amount       NUMBER
+)
+;
+alter table TK_SUB_CLASS_SETUP_T
+  add constraint PK_TK_SUB_CLASS_SETUP_T primary key (ORG_ID, B_CLASS_CODE, SUB_CLASS_CODE);
+alter table TK_SUB_CLASS_SETUP_T
+  add constraint FK_ORG_SUBCLASS foreign key (ORG_ID)
+  references TK_ORGANIZATION_SETUP_T (ORG_ID);
+alter table TK_SUB_CLASS_SETUP_T
+  add constraint FK_SUBCLASS_BCLASS foreign key (ORG_ID, B_CLASS_CODE)
+  references TK_BUS_CLASS_SETUP_T (ORG_ID, B_CLASS_CODE);
+
+prompt
+prompt Creating table TK_CUSTOM_FORMS_SETUP_T
+prompt ======================================
+prompt
+create table TK_CUSTOM_FORMS_SETUP_T
+(
+  org_id           NUMBER not null,
+  b_class_code     VARCHAR2(10) not null,
+  sub_class_code   VARCHAR2(10) not null,
+  form_id          NUMBER not null,
+  form_desc        VARCHAR2(50),
+  active           VARCHAR2(1),
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE
+)
+;
+alter table TK_CUSTOM_FORMS_SETUP_T
+  add constraint PK_TK_CUSTOM_FORMS_SETUP_T primary key (ORG_ID, B_CLASS_CODE, SUB_CLASS_CODE, FORM_ID);
+alter table TK_CUSTOM_FORMS_SETUP_T
+  add constraint FK_CUST_FORM_SUBCLASS foreign key (ORG_ID, B_CLASS_CODE, SUB_CLASS_CODE)
+  references TK_SUB_CLASS_SETUP_T (ORG_ID, B_CLASS_CODE, SUB_CLASS_CODE);
+alter table TK_CUSTOM_FORMS_SETUP_T
+  add constraint FK_ORG_CFORMS foreign key (ORG_ID)
+  references TK_ORGANIZATION_SETUP_T (ORG_ID);
+
+prompt
+prompt Creating table TK_CUSTOM_FORMS_FIELDS_T
+prompt =======================================
+prompt
+create table TK_CUSTOM_FORMS_FIELDS_T
+(
+  org_id           NUMBER not null,
+  b_class_code     VARCHAR2(10) not null,
+  sub_class_code   VARCHAR2(10) not null,
+  form_id          NUMBER not null,
+  field_id         NUMBER not null,
+  field_desc       VARCHAR2(500),
+  field_type       VARCHAR2(2),
+  active           VARCHAR2(1),
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE,
+  display_order    NUMBER,
+  valueset_id      NUMBER
+)
+;
+alter table TK_CUSTOM_FORMS_FIELDS_T
+  add constraint PK_TK_CUSTOM_FORMS_FIELDS_T primary key (ORG_ID, B_CLASS_CODE, SUB_CLASS_CODE, FORM_ID, FIELD_ID);
+alter table TK_CUSTOM_FORMS_FIELDS_T
+  add constraint FK_CUST_FORM_FIELDS foreign key (ORG_ID, B_CLASS_CODE, SUB_CLASS_CODE, FORM_ID)
+  references TK_CUSTOM_FORMS_SETUP_T (ORG_ID, B_CLASS_CODE, SUB_CLASS_CODE, FORM_ID);
+alter table TK_CUSTOM_FORMS_FIELDS_T
+  add constraint FK_ORG_CFORMS_FIRLDS foreign key (ORG_ID)
+  references TK_ORGANIZATION_SETUP_T (ORG_ID);
+
+prompt
+prompt Creating table TK_DEPARTMENT_SETUP_T
+prompt ====================================
+prompt
+create table TK_DEPARTMENT_SETUP_T
+(
+  org_id           NUMBER not null,
+  dept_id          NUMBER not null,
+  dept_desc        VARCHAR2(100),
+  dept_short_code  VARCHAR2(50),
+  creation_date    DATE,
+  created_by       VARCHAR2(50),
+  last_update_date DATE,
+  last_updated_by  VARCHAR2(50)
+)
+;
+alter table TK_DEPARTMENT_SETUP_T
+  add constraint PK_DEPT_SETUP_T primary key (ORG_ID, DEPT_ID);
+alter table TK_DEPARTMENT_SETUP_T
+  add constraint FK_DEPT_ORG foreign key (ORG_ID)
+  references TK_ORGANIZATION_SETUP_T (ORG_ID);
+
+prompt
+prompt Creating table TK_DOC_TYPE_SETUP_T
+prompt ==================================
+prompt
+create table TK_DOC_TYPE_SETUP_T
+(
+  org_id           NUMBER not null,
+  doc_type_code    VARCHAR2(10) not null,
+  doc_type_desc    VARCHAR2(50),
+  active           VARCHAR2(1),
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE
+)
+;
+alter table TK_DOC_TYPE_SETUP_T
+  add constraint PK_TK_DOC_TYPE_SETUP_T primary key (ORG_ID, DOC_TYPE_CODE);
+alter table TK_DOC_TYPE_SETUP_T
+  add constraint FK_ORG_DOCTYPE foreign key (ORG_ID)
+  references TK_ORGANIZATION_SETUP_T (ORG_ID);
+
+prompt
+prompt Creating table TK_DOCUMENT_HEADER_T
+prompt ===================================
+prompt
+create table TK_DOCUMENT_HEADER_T
+(
+  org_id             NUMBER not null,
+  b_class_code       VARCHAR2(10) not null,
+  sub_class_code     VARCHAR2(10) not null,
+  doc_type_code      VARCHAR2(10) not null,
+  client_id          NUMBER not null,
+  doc_no             NUMBER not null,
+  issue_date         DATE,
+  comm_date          DATE,
+  expiry_date        DATE,
+  sum_covered        NUMBER(15,2),
+  gross_contribution NUMBER(15,2),
+  net_contribution   NUMBER(15,2),
+  created_by         VARCHAR2(50),
+  creation_date      DATE,
+  last_updated_by    VARCHAR2(50),
+  last_update_date   DATE
+)
+;
+alter table TK_DOCUMENT_HEADER_T
+  add constraint PK_TK_DOCUMENT_HEADER primary key (ORG_ID, B_CLASS_CODE, SUB_CLASS_CODE, DOC_TYPE_CODE, CLIENT_ID, DOC_NO);
+alter table TK_DOCUMENT_HEADER_T
+  add constraint FK_HEADER_BCLASS foreign key (ORG_ID, B_CLASS_CODE)
+  references TK_BUS_CLASS_SETUP_T (ORG_ID, B_CLASS_CODE);
+alter table TK_DOCUMENT_HEADER_T
+  add constraint FK_HEADER_DOCTYPE foreign key (ORG_ID, DOC_TYPE_CODE)
+  references TK_DOC_TYPE_SETUP_T (ORG_ID, DOC_TYPE_CODE);
+alter table TK_DOCUMENT_HEADER_T
+  add constraint FK_HEADER_SUBCLASS_FACTOR foreign key (ORG_ID, B_CLASS_CODE, SUB_CLASS_CODE)
+  references TK_SUB_CLASS_SETUP_T (ORG_ID, B_CLASS_CODE, SUB_CLASS_CODE);
+alter table TK_DOCUMENT_HEADER_T
+  add constraint FK_ORG_HEADER foreign key (ORG_ID)
+  references TK_ORGANIZATION_SETUP_T (ORG_ID);
+
+prompt
+prompt Creating table TK_DOCUMENT_OTHER_DETAILS_T
+prompt ==========================================
+prompt
+create table TK_DOCUMENT_OTHER_DETAILS_T
+(
+  org_id           NUMBER not null,
+  b_class_code     VARCHAR2(10) not null,
+  sub_class_code   VARCHAR2(10) not null,
+  doc_type_code    VARCHAR2(10) not null,
+  client_id        NUMBER not null,
+  doc_no           NUMBER not null,
+  form_id          NUMBER not null,
+  field_id         NUMBER not null,
+  field_value      VARCHAR2(50),
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE
+)
+;
+alter table TK_DOCUMENT_OTHER_DETAILS_T
+  add constraint PK_TK_DOCUMENT_OTHER_DETAILS primary key (ORG_ID, B_CLASS_CODE, SUB_CLASS_CODE, DOC_TYPE_CODE, CLIENT_ID, DOC_NO, FORM_ID, FIELD_ID);
+alter table TK_DOCUMENT_OTHER_DETAILS_T
+  add constraint FK_DETAIL_CF_FIELDS foreign key (ORG_ID, B_CLASS_CODE, SUB_CLASS_CODE, FORM_ID, FIELD_ID)
+  references TK_CUSTOM_FORMS_FIELDS_T (ORG_ID, B_CLASS_CODE, SUB_CLASS_CODE, FORM_ID, FIELD_ID);
+alter table TK_DOCUMENT_OTHER_DETAILS_T
+  add constraint FK_ORG_DOC_DETAIL foreign key (ORG_ID)
+  references TK_ORGANIZATION_SETUP_T (ORG_ID);
+alter table TK_DOCUMENT_OTHER_DETAILS_T
+  add constraint PK_HEADER_OTH_DETAIL foreign key (ORG_ID, B_CLASS_CODE, SUB_CLASS_CODE, DOC_TYPE_CODE, CLIENT_ID, DOC_NO)
+  references TK_DOCUMENT_HEADER_T (ORG_ID, B_CLASS_CODE, SUB_CLASS_CODE, DOC_TYPE_CODE, CLIENT_ID, DOC_NO);
+
+prompt
+prompt Creating table TK_DOC_CLIENT_REQ_ALT_T
+prompt ======================================
+prompt
+create table TK_DOC_CLIENT_REQ_ALT_T
+(
+  org_id           NUMBER not null,
+  branch_id        NUMBER not null,
+  product_code     NUMBER not null,
+  sub_product_code NUMBER not null,
+  takaful_type     VARCHAR2(1) not null,
+  document_type    VARCHAR2(1) not null,
+  document_no      VARCHAR2(10) not null,
+  record_type      VARCHAR2(1) not null,
+  document_year    VARCHAR2(10) not null,
+  issue_count      NUMBER not null,
+  endorsement_no   NUMBER not null,
+  application_id   NUMBER not null,
+  alt_req_code     NUMBER not null,
+  alteration_type  VARCHAR2(10),
+  file_name        VARCHAR2(50),
+  remarks          VARCHAR2(1000),
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE
+)
+;
+alter table TK_DOC_CLIENT_REQ_ALT_T
+  add constraint PK_DOC_CLIENT_REQ_ALT_T primary key (ORG_ID, BRANCH_ID, PRODUCT_CODE, SUB_PRODUCT_CODE, TAKAFUL_TYPE, DOCUMENT_TYPE, DOCUMENT_NO, RECORD_TYPE, DOCUMENT_YEAR, ISSUE_COUNT, ENDORSEMENT_NO, APPLICATION_ID, ALT_REQ_CODE);
+
+prompt
+prompt Creating table TK_DOC_HEADER_MONTH_T
+prompt ====================================
+prompt
+create table TK_DOC_HEADER_MONTH_T
+(
+  org_id           NUMBER not null,
+  branch_id        NUMBER not null,
+  product_code     NUMBER not null,
+  sub_product_code NUMBER not null,
+  takaful_type     VARCHAR2(1) not null,
+  document_type    VARCHAR2(1) not null,
+  document_no      VARCHAR2(10) not null,
+  record_type      VARCHAR2(1) not null,
+  document_year    VARCHAR2(10) not null,
+  issue_count      NUMBER not null,
+  endorsement_no   NUMBER not null,
+  application_id   NUMBER not null,
+  month_id         NUMBER not null,
+  month_start      DATE,
+  month_end        DATE,
+  status           VARCHAR2(20),
+  creation_date    DATE,
+  created_by       VARCHAR2(50),
+  last_update_date DATE,
+  last_updated_by  VARCHAR2(50)
+)
+;
+alter table TK_DOC_HEADER_MONTH_T
+  add constraint PK_DOC_HEADER_MONTH primary key (ORG_ID, BRANCH_ID, PRODUCT_CODE, SUB_PRODUCT_CODE, TAKAFUL_TYPE, DOCUMENT_TYPE, DOCUMENT_NO, RECORD_TYPE, DOCUMENT_YEAR, ISSUE_COUNT, ENDORSEMENT_NO, APPLICATION_ID, MONTH_ID);
+
+prompt
+prompt Creating table TK_DOC_SETTLEMENT_HD_T
+prompt =====================================
+prompt
+create table TK_DOC_SETTLEMENT_HD_T
+(
+  org_id           NUMBER not null,
+  branch_id        NUMBER not null,
+  sett_no          NUMBER not null,
+  sett_date        DATE,
+  request_date     DATE,
+  sett_type        NUMBER,
+  sett_amount      NUMBER,
+  sett_remarks     VARCHAR2(500),
+  pmd_ref_no       VARCHAR2(50),
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE,
+  lock_flag        VARCHAR2(1),
+  post_flag        VARCHAR2(1),
+  posted_date      DATE,
+  cancel_flag      VARCHAR2(1),
+  cancel_by        VARCHAR2(50),
+  cancel_date      DATE,
+  posted_by        VARCHAR2(50),
+  sett_reason      VARCHAR2(10),
+  pmd_ref_no_key   VARCHAR2(150),
+  advice_key       VARCHAR2(50)
+)
+;
+alter table TK_DOC_SETTLEMENT_HD_T
+  add constraint PK_TK_DOC_SETTLEMENT_HD_T primary key (ORG_ID, BRANCH_ID, SETT_NO);
+
+prompt
+prompt Creating table TK_EFFECTIVE_AGE_CHART_T
+prompt =======================================
+prompt
+create table TK_EFFECTIVE_AGE_CHART_T
+(
+  org_id           NUMBER not null,
+  age_difference   NUMBER not null,
+  value            NUMBER,
+  created_by       VARCHAR2(100),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(100),
+  last_update_date DATE
+)
+;
+alter table TK_EFFECTIVE_AGE_CHART_T
+  add constraint TK_EFFECTIVE_AGE_CHART_PK primary key (ORG_ID, AGE_DIFFERENCE);
+
+prompt
+prompt Creating table TK_EXCLUSION_SETUP_T
+prompt ===================================
+prompt
+create table TK_EXCLUSION_SETUP_T
+(
+  ex_code           NUMBER not null,
+  ex_desc           VARCHAR2(150),
+  active            VARCHAR2(1),
+  ex_text_quotation VARCHAR2(4000),
+  ex_text_policy    VARCHAR2(4000),
+  print_order       NUMBER not null,
+  created_by        VARCHAR2(50),
+  creation_date     DATE,
+  updated_by        VARCHAR2(50),
+  last_updated_by   NVARCHAR2(50),
+  org_id            NUMBER not null,
+  last_update_date  DATE
+)
+;
+alter table TK_EXCLUSION_SETUP_T
+  add constraint TK_EXCLUSION_SETUP_T_PK primary key (EX_CODE, ORG_ID);
+
+prompt
+prompt Creating table TK_FACTOR_SETUP_T
+prompt ================================
+prompt
+create table TK_FACTOR_SETUP_T
+(
+  org_id           NUMBER not null,
+  b_class_code     VARCHAR2(10) not null,
+  factor_code      VARCHAR2(10) not null,
+  factor_desc      VARCHAR2(50),
+  active           VARCHAR2(1),
+  premium_impact   NUMBER(9,6),
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE,
+  flat_amount      NUMBER
+)
+;
+alter table TK_FACTOR_SETUP_T
+  add constraint PK_TK_FACTOR_SETUP_T primary key (ORG_ID, B_CLASS_CODE, FACTOR_CODE);
+alter table TK_FACTOR_SETUP_T
+  add constraint FK_FACTOR_BCLASS foreign key (ORG_ID, B_CLASS_CODE)
+  references TK_BUS_CLASS_SETUP_T (ORG_ID, B_CLASS_CODE);
+alter table TK_FACTOR_SETUP_T
+  add constraint FK_ORG_FACTOR foreign key (ORG_ID)
+  references TK_ORGANIZATION_SETUP_T (ORG_ID);
+
+prompt
+prompt Creating table TK_FORM_FIELDS_TYPE_T
+prompt ====================================
+prompt
+create table TK_FORM_FIELDS_TYPE_T
+(
+  field_type_id    VARCHAR2(10) not null,
+  field_type_desc  VARCHAR2(50),
+  active           VARCHAR2(1),
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE
+)
+;
+alter table TK_FORM_FIELDS_TYPE_T
+  add constraint PK_TK_FORM_FIELDS_TYPE_T primary key (FIELD_TYPE_ID);
+
+prompt
+prompt Creating table TK_GH_ASSESSMENT_SUB_BENEFIT
+prompt ===========================================
+prompt
+create table TK_GH_ASSESSMENT_SUB_BENEFIT
+(
+  org_id           NUMBER not null,
+  branch_id        NUMBER not null,
+  sub_product_code NUMBER not null,
+  claim_year       NUMBER not null,
+  claim_no         VARCHAR2(8) not null,
+  benefit_code     NUMBER not null,
+  assessment_id    NUMBER not null,
+  application_id   NUMBER not null,
+  sub_benefit_code NUMBER not null,
+  total_days       NUMBER,
+  claim_amount     NUMBER,
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE,
+  approved_amount  NUMBER
+)
+;
+alter table TK_GH_ASSESSMENT_SUB_BENEFIT
+  add constraint PK_ASS_SUB_BENEFITS primary key (ORG_ID, BRANCH_ID, SUB_PRODUCT_CODE, CLAIM_NO, BENEFIT_CODE, ASSESSMENT_ID, APPLICATION_ID, SUB_BENEFIT_CODE, CLAIM_YEAR);
+
+prompt
+prompt Creating table TK_ILLUSTRATIONDTL_MONTHLY_T
+prompt ===========================================
+prompt
+create table TK_ILLUSTRATIONDTL_MONTHLY_T
+(
+  org_id                        NUMBER not null,
+  branch_id                     NUMBER,
+  main_product_code             NUMBER not null,
+  sub_product_code              NUMBER not null,
+  document_no                   VARCHAR2(10) not null,
+  document_year                 NUMBER not null,
+  application_id                NUMBER not null,
+  issue_count                   NUMBER not null,
+  illustration_id               NUMBER not null,
+  effective_age                 NUMBER,
+  policy_year                   NUMBER not null,
+  policy_month                  NUMBER not null,
+  basic_contribution            NUMBER,
+  invested_contribution         NUMBER,
+  allocation_percentage         NUMBER,
+  allocation_contribution       NUMBER,
+  mortality_rate1               NUMBER,
+  mortality_rate2               NUMBER,
+  sum_assured                   NUMBER,
+  sum_assured_at_risk           NUMBER,
+  mortality_charges             NUMBER,
+  ptf_surplus                   NUMBER,
+  waqala_charges                NUMBER,
+  contingency_margin            NUMBER,
+  reins_amount                  NUMBER,
+  admin_charges                 NUMBER,
+  cash_value1                   NUMBER,
+  cash_value2                   NUMBER,
+  cash_value3                   NUMBER,
+  created_by                    VARCHAR2(50),
+  creation_date                 DATE,
+  bid_offer                     NUMBER,
+  sum_assured_at_risk1          NUMBER,
+  mortality_charges1            NUMBER,
+  investment_income1            NUMBER,
+  im_charges1                   NUMBER,
+  sum_assured_at_risk2          NUMBER,
+  mortality_charges2            NUMBER,
+  investment_income2            NUMBER,
+  im_charges2                   NUMBER,
+  sum_assured_at_risk3          NUMBER,
+  mortality_charges3            NUMBER,
+  investment_income3            NUMBER,
+  im_charges3                   NUMBER,
+  topup_contributon             NUMBER,
+  topup_cumulative              NUMBER,
+  topup_bid_offer               NUMBER,
+  topup_net_investment1         NUMBER,
+  topup_investment_income1      NUMBER,
+  topup_im_charges1             NUMBER,
+  topup_cash_value1             NUMBER,
+  topup_net_investment2         NUMBER,
+  topup_investment_income2      NUMBER,
+  topup_im_charges2             NUMBER,
+  topup_cash_value2             NUMBER,
+  topup_net_investment3         NUMBER,
+  topup_investment_income3      NUMBER,
+  topup_im_charges3             NUMBER,
+  topup_cash_value3             NUMBER,
+  inflation_adj_contribution    NUMBER,
+  inflation_accumulated_contri  NUMBER,
+  topup_allocation_contribution NUMBER,
+  topup_inflation_adj_contri    NUMBER,
+  topup_inflation_accumu_contri NUMBER,
+  surrender_charge_rate         NUMBER
+)
+;
+alter table TK_ILLUSTRATIONDTL_MONTHLY_T
+  add constraint PK_ILLDTL_MONTHLY primary key (ORG_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, DOCUMENT_NO, DOCUMENT_YEAR, ISSUE_COUNT, APPLICATION_ID, ILLUSTRATION_ID, POLICY_YEAR, POLICY_MONTH);
+alter table TK_ILLUSTRATIONDTL_MONTHLY_T
+  add constraint FK_ILLDTL_MONTHLY foreign key (ORG_ID, BRANCH_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, DOCUMENT_NO, DOCUMENT_YEAR, APPLICATION_ID, ISSUE_COUNT)
+  references TK_ILLUSTRATIONHD_POS (ORG_ID, BRANCH_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, DOCUMENT_NO, DOCUMENT_YEAR, APPLICATION_ID, ISSUE_COUNT);
+
+prompt
+prompt Creating table TK_ILLUSTRATIONDTL_POS
+prompt =====================================
+prompt
+create table TK_ILLUSTRATIONDTL_POS
+(
+  org_id                       NUMBER not null,
+  branch_id                    NUMBER,
+  main_product_code            NUMBER not null,
+  sub_product_code             NUMBER not null,
+  document_no                  VARCHAR2(10) not null,
+  document_year                NUMBER not null,
+  application_id               NUMBER not null,
+  issue_count                  NUMBER not null,
+  illustration_id              NUMBER not null,
+  effective_age                NUMBER,
+  policy_year                  NUMBER not null,
+  basic_contribution           NUMBER,
+  invested_contribution        NUMBER,
+  allocation_percentage        NUMBER,
+  allocation_contribution      NUMBER,
+  mortality_rate1              NUMBER,
+  mortality_rate2              NUMBER,
+  sum_assured                  NUMBER,
+  sum_assured_at_risk          NUMBER,
+  mortality_charges            NUMBER,
+  ptf_surplus                  NUMBER,
+  waqala_charges               NUMBER,
+  contingency_margin           NUMBER,
+  reins_amount                 NUMBER,
+  admin_charges                NUMBER,
+  cash_value1                  NUMBER,
+  cash_value2                  NUMBER,
+  cash_value3                  NUMBER,
+  created_by                   VARCHAR2(50),
+  creation_date                DATE,
+  bid_offer                    NUMBER,
+  sum_assured_at_risk1         NUMBER,
+  mortality_charges1           NUMBER,
+  investment_income1           NUMBER,
+  im_charges1                  NUMBER,
+  sum_assured_at_risk2         NUMBER,
+  mortality_charges2           NUMBER,
+  investment_income2           NUMBER,
+  im_charges2                  NUMBER,
+  sum_assured_at_risk3         NUMBER,
+  mortality_charges3           NUMBER,
+  investment_income3           NUMBER,
+  im_charges3                  NUMBER,
+  topup_contributon            NUMBER,
+  topup_cumulative             NUMBER,
+  topup_bid_offer              NUMBER,
+  topup_net_investment1        NUMBER,
+  topup_investment_income1     NUMBER,
+  topup_im_charges1            NUMBER,
+  topup_cash_value1            NUMBER,
+  topup_net_investment2        NUMBER,
+  topup_investment_income2     NUMBER,
+  topup_im_charges2            NUMBER,
+  topup_cash_value2            NUMBER,
+  topup_net_investment3        NUMBER,
+  topup_investment_income3     NUMBER,
+  topup_im_charges3            NUMBER,
+  topup_cash_value3            NUMBER,
+  paidup_value                 NUMBER,
+  sv_rate_of_sa                NUMBER,
+  surrender_value              NUMBER,
+  sv_rate_of_bonus             NUMBER,
+  bonus_rate1                  NUMBER,
+  bonus_sv1                    NUMBER,
+  bonus_amount1                NUMBER,
+  bonus_rate2                  NUMBER,
+  bonus_sv2                    NUMBER,
+  bonus_amount2                NUMBER,
+  bonus_rate3                  NUMBER,
+  bonus_sv3                    NUMBER,
+  bonus_amount3                NUMBER,
+  sv_payable1                  NUMBER,
+  death_benefit1               NUMBER,
+  sv_payable2                  NUMBER,
+  death_benefit2               NUMBER,
+  sv_payable3                  NUMBER,
+  death_benefit3               NUMBER,
+  surrender_charge_rate        NUMBER,
+  inflation_adj_contribution   NUMBER,
+  inflation_accumulated_contri NUMBER,
+  mortality_running_total      NUMBER
+)
+;
+alter table TK_ILLUSTRATIONDTL_POS
+  add constraint PK_ILLDTL_POSL primary key (ORG_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, DOCUMENT_NO, DOCUMENT_YEAR, ISSUE_COUNT, APPLICATION_ID, ILLUSTRATION_ID, POLICY_YEAR);
+alter table TK_ILLUSTRATIONDTL_POS
+  add constraint FK_ILLDTL_HEADER foreign key (ORG_ID, BRANCH_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, DOCUMENT_NO, DOCUMENT_YEAR, APPLICATION_ID, ISSUE_COUNT)
+  references TK_ILLUSTRATIONHD_POS (ORG_ID, BRANCH_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, DOCUMENT_NO, DOCUMENT_YEAR, APPLICATION_ID, ISSUE_COUNT);
+
+prompt
+prompt Creating table TK_ILLUSTRATION_DETAIL
+prompt =====================================
+prompt
+create table TK_ILLUSTRATION_DETAIL
+(
+  org_id                  NUMBER not null,
+  b_class_code            VARCHAR2(10) not null,
+  sub_class_code          VARCHAR2(10) not null,
+  illustration_id         NUMBER not null,
+  effective_age           NUMBER,
+  policy_year             NUMBER not null,
+  basic_contribution      NUMBER,
+  invested_contribution   NUMBER,
+  allocation_percentage   NUMBER,
+  allocation_contribution NUMBER,
+  mortality_rate1         NUMBER,
+  mortality_rate2         NUMBER,
+  sum_assured             NUMBER,
+  sum_assured_at_risk     NUMBER,
+  mortality_charges       NUMBER,
+  ptf_surplus             NUMBER,
+  waqala_charges          NUMBER,
+  contingency_margin      NUMBER,
+  reins_amount            NUMBER,
+  admin_charges           NUMBER,
+  cash_value1             NUMBER,
+  cash_value2             NUMBER,
+  cash_value3             NUMBER
+)
+;
+alter table TK_ILLUSTRATION_DETAIL
+  add constraint PK_ILLUST_DETAIL primary key (ORG_ID, B_CLASS_CODE, SUB_CLASS_CODE, ILLUSTRATION_ID, POLICY_YEAR);
+
+prompt
+prompt Creating table TK_ILLUSTRATION_HEADER
+prompt =====================================
+prompt
+create table TK_ILLUSTRATION_HEADER
+(
+  org_id             NUMBER not null,
+  b_class_code       VARCHAR2(10) not null,
+  sub_class_code     VARCHAR2(10) not null,
+  seq_no             NUMBER not null,
+  issue_date         DATE,
+  comm_date          DATE,
+  expiry_date        DATE,
+  name1              VARCHAR2(50),
+  name2              VARCHAR2(50),
+  dob1               DATE,
+  dob2               DATE,
+  age1               NUMBER(3),
+  age2               NUMBER(3),
+  gender1            VARCHAR2(1),
+  gender2            VARCHAR2(1),
+  policy_term        NUMBER(3),
+  sum_covered        NUMBER(15,2),
+  sum_covered_index  NUMBER(15,2),
+  contribution_index NUMBER(15,2),
+  basic_contribution NUMBER(15,2),
+  gross_contribution NUMBER(15,2),
+  net_contribution   NUMBER(15,2),
+  cover_multiple     NUMBER(3),
+  cont_margin        NUMBER(9,6),
+  last_age_index     NUMBER(3),
+  waqala_fee         NUMBER(15,2),
+  expected_claim     NUMBER(15,2),
+  investment_income  NUMBER(15,2),
+  created_by         VARCHAR2(50),
+  creation_date      DATE,
+  last_updated_by    VARCHAR2(50),
+  last_update_date   DATE,
+  second_life        VARCHAR2(1),
+  payment_mode       VARCHAR2(1),
+  bid_offer          NUMBER(15,2)
+)
+;
+alter table TK_ILLUSTRATION_HEADER
+  add constraint PK_ILL_HEADER primary key (ORG_ID, B_CLASS_CODE, SUB_CLASS_CODE, SEQ_NO);
+
+prompt
+prompt Creating table TK_ILLUST_CASHBACK_POS_T
+prompt =======================================
+prompt
+create table TK_ILLUST_CASHBACK_POS_T
+(
+  org_id            NUMBER not null,
+  branch_id         NUMBER not null,
+  main_product_code NUMBER not null,
+  sub_product_code  NUMBER not null,
+  document_no       VARCHAR2(10) not null,
+  document_year     NUMBER not null,
+  application_id    NUMBER not null,
+  issue_count       NUMBER not null,
+  policy_year       NUMBER not null,
+  cashback_percent  NUMBER,
+  cashback_amount   NUMBER,
+  created_by        VARCHAR2(50),
+  creation_date     DATE,
+  last_updated_by   VARCHAR2(50),
+  last_update_date  DATE
+)
+;
+alter table TK_ILLUST_CASHBACK_POS_T
+  add constraint PK_ILLHD_CASHBACK_POS primary key (ORG_ID, BRANCH_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, DOCUMENT_NO, DOCUMENT_YEAR, APPLICATION_ID, ISSUE_COUNT, POLICY_YEAR);
+
+prompt
+prompt Creating table TK_ILL_ADHOC_CLIENT_T
+prompt ====================================
+prompt
+create table TK_ILL_ADHOC_CLIENT_T
+(
+  org_id           NUMBER not null,
+  client_code      NUMBER not null,
+  cnic_no          VARCHAR2(50),
+  cnic_issue_date  DATE,
+  cnic_expiry_date DATE,
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE,
+  name             VARCHAR2(50),
+  dob              DATE,
+  middle_name      VARCHAR2(50),
+  last_name        VARCHAR2(50),
+  gender           VARCHAR2(1),
+  title            VARCHAR2(1),
+  mobile_no        VARCHAR2(20)
+)
+;
+alter table TK_ILL_ADHOC_CLIENT_T
+  add constraint PK_ILLADHOC_CLIENT primary key (ORG_ID, CLIENT_CODE);
+
+prompt
+prompt Creating table TK_ILL_DOC_CBC_NEW_T
+prompt ===================================
+prompt
+create table TK_ILL_DOC_CBC_NEW_T
+(
+  org_id            NUMBER not null,
+  branch_id         NUMBER not null,
+  main_product_code NUMBER,
+  sub_product_code  NUMBER,
+  takaful_type      VARCHAR2(1),
+  document_type     VARCHAR2(1),
+  document_no       VARCHAR2(10),
+  record_type       VARCHAR2(1),
+  document_year     VARCHAR2(10),
+  issue_count       NUMBER,
+  endorsement_no    NUMBER,
+  application_id    NUMBER,
+  serial_no         NUMBER not null,
+  cbc_status_code   NUMBER,
+  cbc_reason_code   NUMBER,
+  reminder_date     DATE,
+  file_path         VARCHAR2(500),
+  remarks           VARCHAR2(500),
+  created_by        VARCHAR2(50),
+  creation_date     DATE,
+  last_updated_by   VARCHAR2(50),
+  last_update_date  DATE,
+  process_id        NUMBER not null
+)
+;
+alter table TK_ILL_DOC_CBC_NEW_T
+  add constraint PK_DOC_UND_CBC_NEW primary key (ORG_ID, BRANCH_ID, PROCESS_ID, SERIAL_NO);
+
+prompt
+prompt Creating table TK_ILL_DOC_CBC_T
+prompt ===============================
+prompt
+create table TK_ILL_DOC_CBC_T
+(
+  org_id            NUMBER not null,
+  branch_id         NUMBER not null,
+  main_product_code NUMBER not null,
+  sub_product_code  NUMBER not null,
+  takaful_type      VARCHAR2(1) not null,
+  document_type     VARCHAR2(1) not null,
+  document_no       VARCHAR2(10) not null,
+  record_type       VARCHAR2(1) not null,
+  document_year     VARCHAR2(10) not null,
+  issue_count       NUMBER not null,
+  endorsement_no    NUMBER not null,
+  application_id    NUMBER not null,
+  serial_no         NUMBER not null,
+  cbc_status_code   NUMBER,
+  cbc_reason_code   NUMBER,
+  reminder_date     DATE,
+  file_path         VARCHAR2(500),
+  remarks           VARCHAR2(500),
+  created_by        VARCHAR2(50),
+  creation_date     DATE,
+  last_updated_by   VARCHAR2(50),
+  last_update_date  DATE
+)
+;
+alter table TK_ILL_DOC_CBC_T
+  add constraint PK_IL_DOC_CBC_ primary key (ORG_ID, BRANCH_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, TAKAFUL_TYPE, DOCUMENT_TYPE, DOCUMENT_NO, RECORD_TYPE, DOCUMENT_YEAR, ISSUE_COUNT, ENDORSEMENT_NO, APPLICATION_ID, SERIAL_NO);
+alter table TK_ILL_DOC_CBC_T
+  add constraint FK_IL_DOC_CBC_DOC foreign key (ORG_ID, BRANCH_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, TAKAFUL_TYPE, DOCUMENT_TYPE, DOCUMENT_NO, RECORD_TYPE, DOCUMENT_YEAR, ISSUE_COUNT, ENDORSEMENT_NO, APPLICATION_ID)
+  references IL_DOC_HEADER_T (ORG_ID, BRANCH_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, TAKAFUL_TYPE, DOCUMENT_TYPE, DOCUMENT_NO, RECORD_TYPE, DOCUMENT_YEAR, ISSUE_COUNT, ENDORSEMENT_NO, APPLICATION_ID);
+
+prompt
+prompt Creating table TK_ILL_DOC_FAP
+prompt =============================
+prompt
+create table TK_ILL_DOC_FAP
+(
+  org_id            NUMBER not null,
+  branch_id         NUMBER not null,
+  main_product_code NUMBER not null,
+  sub_product_code  NUMBER not null,
+  takaful_type      VARCHAR2(1),
+  document_type     VARCHAR2(1),
+  document_no       VARCHAR2(10) not null,
+  record_type       VARCHAR2(1),
+  document_year     VARCHAR2(10) not null,
+  issue_count       NUMBER not null,
+  endorsement_no    NUMBER,
+  application_id    NUMBER not null,
+  serial_no         NUMBER not null,
+  fap_year          NUMBER,
+  fap_amount        NUMBER,
+  created_by        VARCHAR2(50),
+  creation_date     DATE,
+  last_updated_by   VARCHAR2(50),
+  last_update_date  DATE
+)
+;
+alter table TK_ILL_DOC_FAP
+  add constraint PK_ILL_DOC_FAP primary key (ORG_ID, BRANCH_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, DOCUMENT_NO, DOCUMENT_YEAR, APPLICATION_ID, ISSUE_COUNT, SERIAL_NO);
+alter table TK_ILL_DOC_FAP
+  add constraint FK_ILL_FAP_HD foreign key (ORG_ID, BRANCH_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, TAKAFUL_TYPE, DOCUMENT_TYPE, DOCUMENT_NO, RECORD_TYPE, DOCUMENT_YEAR, ISSUE_COUNT, ENDORSEMENT_NO, APPLICATION_ID)
+  references IL_DOC_HEADER_T (ORG_ID, BRANCH_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, TAKAFUL_TYPE, DOCUMENT_TYPE, DOCUMENT_NO, RECORD_TYPE, DOCUMENT_YEAR, ISSUE_COUNT, ENDORSEMENT_NO, APPLICATION_ID);
+
+prompt
+prompt Creating table TK_ILL_DOC_FUNDS
+prompt ===============================
+prompt
+create table TK_ILL_DOC_FUNDS
+(
+  org_id                NUMBER not null,
+  branch_id             NUMBER not null,
+  main_product_code     NUMBER not null,
+  sub_product_code      NUMBER not null,
+  takaful_type          VARCHAR2(1) not null,
+  document_type         VARCHAR2(1) not null,
+  document_no           VARCHAR2(10) not null,
+  record_type           VARCHAR2(1) not null,
+  document_year         VARCHAR2(10) not null,
+  issue_count           NUMBER not null,
+  endorsement_no        NUMBER not null,
+  application_id        NUMBER not null,
+  fund_code             NUMBER not null,
+  fund_share            NUMBER,
+  created_by            VARCHAR2(50),
+  creation_date         DATE,
+  last_updated_by       VARCHAR2(50),
+  last_update_date      DATE,
+  rider_term            NUMBER,
+  payment_term          NUMBER,
+  sa_percent            NUMBER,
+  monthly_amount        NUMBER,
+  rider_rate            NUMBER,
+  funds_amount          NUMBER,
+  allocation_tag        VARCHAR2(1),
+  cash_value_diff_final NUMBER,
+  fund_share_diff       NUMBER,
+  fund_share_new        NUMBER,
+  fund_share_old        NUMBER,
+  no_of_units           NUMBER,
+  no_of_units_old       NUMBER,
+  no_of_units_new       NUMBER,
+  no_of_units_diff      NUMBER,
+  cash_value            NUMBER,
+  cash_value_old        NUMBER,
+  cash_value_new        NUMBER,
+  cash_value_diff       NUMBER,
+  bid_price             NUMBER,
+  serial_no             NUMBER
+)
+;
+alter table TK_ILL_DOC_FUNDS
+  add constraint PK_ILL_DOC_FUND primary key (ORG_ID, BRANCH_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, TAKAFUL_TYPE, DOCUMENT_TYPE, DOCUMENT_NO, RECORD_TYPE, DOCUMENT_YEAR, ISSUE_COUNT, ENDORSEMENT_NO, APPLICATION_ID, FUND_CODE);
+alter table TK_ILL_DOC_FUNDS
+  add constraint FK_ILL_DOC_FUND_HD foreign key (ORG_ID, BRANCH_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, TAKAFUL_TYPE, DOCUMENT_TYPE, DOCUMENT_NO, RECORD_TYPE, DOCUMENT_YEAR, ISSUE_COUNT, ENDORSEMENT_NO, APPLICATION_ID)
+  references IL_DOC_HEADER_T (ORG_ID, BRANCH_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, TAKAFUL_TYPE, DOCUMENT_TYPE, DOCUMENT_NO, RECORD_TYPE, DOCUMENT_YEAR, ISSUE_COUNT, ENDORSEMENT_NO, APPLICATION_ID);
+
+prompt
+prompt Creating table TK_ILL_DOC_RIDERS
+prompt ================================
+prompt
+create table TK_ILL_DOC_RIDERS
+(
+  org_id                     NUMBER not null,
+  branch_id                  NUMBER not null,
+  main_product_code          NUMBER not null,
+  sub_product_code           NUMBER not null,
+  takaful_type               VARCHAR2(1) not null,
+  document_type              VARCHAR2(1) not null,
+  document_no                VARCHAR2(10) not null,
+  record_type                VARCHAR2(1) not null,
+  document_year              VARCHAR2(10) not null,
+  issue_count                NUMBER not null,
+  endorsement_no             NUMBER not null,
+  application_id             NUMBER not null,
+  benefit_code               NUMBER not null,
+  sum_assured                NUMBER,
+  contribution               NUMBER,
+  created_by                 VARCHAR2(50),
+  creation_date              DATE,
+  last_updated_by            VARCHAR2(50),
+  last_update_date           DATE,
+  rider_term                 NUMBER,
+  payment_term               NUMBER,
+  sa_percent                 NUMBER,
+  monthly_amount             NUMBER,
+  rider_rate                 NUMBER,
+  remarks                    VARCHAR2(500),
+  decision_code              VARCHAR2(50),
+  loading_contribution       NUMBER,
+  loading_contribution_modal NUMBER,
+  contribution_modal         NUMBER,
+  total_contribution         NUMBER,
+  total_contribution_modal   NUMBER,
+  rider_net_rate             NUMBER,
+  net_contribution_modal     NUMBER,
+  net_contribution           NUMBER,
+  endorsement_tag            VARCHAR2(1),
+  effective_date             DATE
+)
+;
+alter table TK_ILL_DOC_RIDERS
+  add constraint ILL_RIDER_PK primary key (ORG_ID, BRANCH_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, TAKAFUL_TYPE, DOCUMENT_TYPE, DOCUMENT_NO, RECORD_TYPE, DOCUMENT_YEAR, ISSUE_COUNT, ENDORSEMENT_NO, APPLICATION_ID, BENEFIT_CODE);
+alter table TK_ILL_DOC_RIDERS
+  add constraint FK_ILL_RIDER_HD foreign key (ORG_ID, BRANCH_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, TAKAFUL_TYPE, DOCUMENT_TYPE, DOCUMENT_NO, RECORD_TYPE, DOCUMENT_YEAR, ISSUE_COUNT, ENDORSEMENT_NO, APPLICATION_ID)
+  references IL_DOC_HEADER_T (ORG_ID, BRANCH_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, TAKAFUL_TYPE, DOCUMENT_TYPE, DOCUMENT_NO, RECORD_TYPE, DOCUMENT_YEAR, ISSUE_COUNT, ENDORSEMENT_NO, APPLICATION_ID);
+
+prompt
+prompt Creating table TK_ILL_DOC_LOADING
+prompt =================================
+prompt
+create table TK_ILL_DOC_LOADING
+(
+  org_id                     NUMBER not null,
+  branch_id                  NUMBER not null,
+  main_product_code          NUMBER not null,
+  sub_product_code           NUMBER not null,
+  takaful_type               VARCHAR2(1) not null,
+  document_type              VARCHAR2(1) not null,
+  document_no                VARCHAR2(10) not null,
+  record_type                VARCHAR2(1) not null,
+  document_year              VARCHAR2(10) not null,
+  issue_count                NUMBER not null,
+  endorsement_no             NUMBER not null,
+  application_id             NUMBER not null,
+  benefit_code               NUMBER not null,
+  loading_type               VARCHAR2(10) not null,
+  loading_code               NUMBER,
+  loading_value              NUMBER,
+  created_by                 VARCHAR2(50),
+  creation_date              DATE,
+  last_updated_by            VARCHAR2(50),
+  last_update_date           DATE,
+  rider_term                 NUMBER,
+  payment_term               NUMBER,
+  sa_percent                 NUMBER,
+  monthly_amount             NUMBER,
+  rider_rate                 NUMBER,
+  loading_contribution       NUMBER,
+  loading_contribution_modal NUMBER,
+  loading_net_rate           NUMBER,
+  loading_net_contribution   NUMBER,
+  net_contribution_modal     NUMBER
+)
+;
+alter table TK_ILL_DOC_LOADING
+  add constraint PK_ILL_DOC_LOAD primary key (ORG_ID, BRANCH_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, TAKAFUL_TYPE, DOCUMENT_TYPE, DOCUMENT_NO, RECORD_TYPE, DOCUMENT_YEAR, ISSUE_COUNT, ENDORSEMENT_NO, APPLICATION_ID, BENEFIT_CODE, LOADING_TYPE);
+alter table TK_ILL_DOC_LOADING
+  add constraint FK_ILL_DOC_LOAD_HD foreign key (ORG_ID, BRANCH_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, TAKAFUL_TYPE, DOCUMENT_TYPE, DOCUMENT_NO, RECORD_TYPE, DOCUMENT_YEAR, ISSUE_COUNT, ENDORSEMENT_NO, APPLICATION_ID)
+  references IL_DOC_HEADER_T (ORG_ID, BRANCH_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, TAKAFUL_TYPE, DOCUMENT_TYPE, DOCUMENT_NO, RECORD_TYPE, DOCUMENT_YEAR, ISSUE_COUNT, ENDORSEMENT_NO, APPLICATION_ID);
+alter table TK_ILL_DOC_LOADING
+  add constraint FK_ILL_DOC_LOAD_RIDER foreign key (ORG_ID, BRANCH_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, TAKAFUL_TYPE, DOCUMENT_TYPE, DOCUMENT_NO, RECORD_TYPE, DOCUMENT_YEAR, ISSUE_COUNT, ENDORSEMENT_NO, APPLICATION_ID, BENEFIT_CODE)
+  references TK_ILL_DOC_RIDERS (ORG_ID, BRANCH_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, TAKAFUL_TYPE, DOCUMENT_TYPE, DOCUMENT_NO, RECORD_TYPE, DOCUMENT_YEAR, ISSUE_COUNT, ENDORSEMENT_NO, APPLICATION_ID, BENEFIT_CODE);
+
+prompt
+prompt Creating table TK_ILL_DOC_UNDWT_REASONS
+prompt =======================================
+prompt
+create table TK_ILL_DOC_UNDWT_REASONS
+(
+  org_id            NUMBER not null,
+  branch_id         NUMBER not null,
+  main_product_code NUMBER not null,
+  sub_product_code  NUMBER not null,
+  takaful_type      VARCHAR2(1) not null,
+  document_type     VARCHAR2(1) not null,
+  document_no       VARCHAR2(10) not null,
+  record_type       VARCHAR2(1) not null,
+  document_year     VARCHAR2(10) not null,
+  issue_count       NUMBER not null,
+  endorsement_no    NUMBER not null,
+  application_id    NUMBER not null,
+  serial_no         NUMBER not null,
+  reason_code       NUMBER,
+  reason_desc       VARCHAR2(1000),
+  decision_code     NUMBER,
+  created_by        VARCHAR2(50),
+  creation_date     DATE,
+  last_updated_by   VARCHAR2(50),
+  last_update_date  DATE,
+  rider_term        NUMBER,
+  payment_term      NUMBER,
+  sa_percent        NUMBER,
+  monthly_amount    NUMBER,
+  rider_rate        NUMBER,
+  process_id        NUMBER
+)
+;
+alter table TK_ILL_DOC_UNDWT_REASONS
+  add constraint PK_IL_DOC_UNDWT_REASONS primary key (ORG_ID, BRANCH_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, TAKAFUL_TYPE, DOCUMENT_TYPE, DOCUMENT_NO, RECORD_TYPE, DOCUMENT_YEAR, ISSUE_COUNT, ENDORSEMENT_NO, APPLICATION_ID, SERIAL_NO);
+alter table TK_ILL_DOC_UNDWT_REASONS
+  add constraint FK_IL_UNDWT_REAS_DOC foreign key (ORG_ID, BRANCH_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, TAKAFUL_TYPE, DOCUMENT_TYPE, DOCUMENT_NO, RECORD_TYPE, DOCUMENT_YEAR, ISSUE_COUNT, ENDORSEMENT_NO, APPLICATION_ID)
+  references IL_DOC_HEADER_T (ORG_ID, BRANCH_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, TAKAFUL_TYPE, DOCUMENT_TYPE, DOCUMENT_NO, RECORD_TYPE, DOCUMENT_YEAR, ISSUE_COUNT, ENDORSEMENT_NO, APPLICATION_ID);
+
+prompt
+prompt Creating table TK_ILL_DOC_UND_REASONS_NEW
+prompt =========================================
+prompt
+create table TK_ILL_DOC_UND_REASONS_NEW
+(
+  org_id            NUMBER not null,
+  branch_id         NUMBER not null,
+  main_product_code NUMBER,
+  sub_product_code  NUMBER,
+  takaful_type      VARCHAR2(1),
+  document_type     VARCHAR2(1),
+  document_no       VARCHAR2(10),
+  record_type       VARCHAR2(1),
+  document_year     VARCHAR2(10),
+  issue_count       NUMBER,
+  endorsement_no    NUMBER,
+  application_id    NUMBER,
+  serial_no         NUMBER not null,
+  reason_code       NUMBER,
+  reason_desc       VARCHAR2(1000),
+  decision_code     NUMBER,
+  created_by        VARCHAR2(50),
+  creation_date     DATE,
+  last_updated_by   VARCHAR2(50),
+  last_update_date  DATE,
+  rider_term        NUMBER,
+  payment_term      NUMBER,
+  sa_percent        NUMBER,
+  monthly_amount    NUMBER,
+  rider_rate        NUMBER,
+  process_id        NUMBER not null
+)
+;
+alter table TK_ILL_DOC_UND_REASONS_NEW
+  add constraint PK_DOC_UND_REASON_NEW primary key (ORG_ID, BRANCH_ID, PROCESS_ID, SERIAL_NO);
+
+prompt
+prompt Creating table TK_ILL_POS_BENEFICIARY_T
+prompt =======================================
+prompt
+create table TK_ILL_POS_BENEFICIARY_T
+(
+  org_id                    NUMBER not null,
+  branch_id                 NUMBER not null,
+  main_product_code         NUMBER not null,
+  sub_product_code          NUMBER not null,
+  document_no               VARCHAR2(10) not null,
+  document_year             NUMBER not null,
+  application_id            NUMBER not null,
+  issue_count               NUMBER not null,
+  beneficiary_code          NUMBER not null,
+  relation_code             NUMBER(9,6),
+  percentage                NUMBER(15,2),
+  amount                    NUMBER(15,2),
+  cnic_no                   VARCHAR2(50),
+  dob                       DATE,
+  created_by                VARCHAR2(50),
+  creation_date             DATE,
+  last_update_date          DATE,
+  last_updated_by           VARCHAR2(50),
+  cnic_issue_date           DATE,
+  cnic_expiry_date          DATE,
+  beneficiary_name          VARCHAR2(50),
+  is_guardian               VARCHAR2(1),
+  guardian_name             VARCHAR2(50),
+  guardian_relation_code    VARCHAR2(1),
+  guardian_dob              DATE,
+  guardian_cnic_no          VARCHAR2(50),
+  guardian_cnic_issue_date  DATE,
+  guardian_cnic_expiry_date DATE
+)
+;
+alter table TK_ILL_POS_BENEFICIARY_T
+  add constraint PK_ILL_BENEFICIARY primary key (ORG_ID, BRANCH_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, DOCUMENT_NO, DOCUMENT_YEAR, APPLICATION_ID, ISSUE_COUNT, BENEFICIARY_CODE);
+alter table TK_ILL_POS_BENEFICIARY_T
+  add constraint FK_ILL_BENEFICIARY_HEADER foreign key (ORG_ID, BRANCH_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, DOCUMENT_NO, DOCUMENT_YEAR, APPLICATION_ID, ISSUE_COUNT)
+  references TK_ILLUSTRATIONHD_POS (ORG_ID, BRANCH_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, DOCUMENT_NO, DOCUMENT_YEAR, APPLICATION_ID, ISSUE_COUNT);
+
+prompt
+prompt Creating table TK_ILL_POS_BNF_ATT_T
+prompt ===================================
+prompt
+create table TK_ILL_POS_BNF_ATT_T
+(
+  org_id            NUMBER not null,
+  branch_id         NUMBER not null,
+  main_product_code NUMBER not null,
+  sub_product_code  NUMBER not null,
+  document_no       VARCHAR2(10) not null,
+  document_year     NUMBER not null,
+  application_id    NUMBER not null,
+  issue_count       NUMBER not null,
+  beneficiary_code  NUMBER not null,
+  attachment_code   NUMBER not null,
+  attachment_desc   VARCHAR2(50),
+  file_path         VARCHAR2(500),
+  created_by        VARCHAR2(50),
+  creation_date     DATE,
+  last_updated_by   VARCHAR2(50),
+  last_update_date  DATE
+)
+;
+alter table TK_ILL_POS_BNF_ATT_T
+  add constraint PK_ILL_POS_BNF_ATT primary key (ORG_ID, BRANCH_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, DOCUMENT_NO, DOCUMENT_YEAR, APPLICATION_ID, ISSUE_COUNT, BENEFICIARY_CODE, ATTACHMENT_CODE);
+alter table TK_ILL_POS_BNF_ATT_T
+  add constraint FK_ILL_POS_BF_ATT foreign key (ORG_ID, BRANCH_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, DOCUMENT_NO, DOCUMENT_YEAR, APPLICATION_ID, ISSUE_COUNT, BENEFICIARY_CODE)
+  references TK_ILL_POS_BENEFICIARY_T (ORG_ID, BRANCH_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, DOCUMENT_NO, DOCUMENT_YEAR, APPLICATION_ID, ISSUE_COUNT, BENEFICIARY_CODE);
+
+prompt
+prompt Creating table TK_ILL_POS_FAP
+prompt =============================
+prompt
+create table TK_ILL_POS_FAP
+(
+  org_id            NUMBER not null,
+  branch_id         NUMBER not null,
+  main_product_code NUMBER not null,
+  sub_product_code  NUMBER not null,
+  document_no       VARCHAR2(10) not null,
+  document_year     NUMBER not null,
+  application_id    NUMBER not null,
+  issue_count       NUMBER not null,
+  serial_no         NUMBER not null,
+  fap_year          NUMBER,
+  fap_amount        NUMBER,
+  created_by        VARCHAR2(50),
+  creation_date     DATE,
+  last_updated_by   VARCHAR2(50),
+  last_update_date  DATE
+)
+;
+alter table TK_ILL_POS_FAP
+  add constraint PK_ILL_POS_FAP primary key (ORG_ID, BRANCH_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, DOCUMENT_NO, DOCUMENT_YEAR, APPLICATION_ID, ISSUE_COUNT, SERIAL_NO);
+alter table TK_ILL_POS_FAP
+  add constraint FK_ILL_POS_FAP_HEADER foreign key (ORG_ID, BRANCH_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, DOCUMENT_NO, DOCUMENT_YEAR, APPLICATION_ID, ISSUE_COUNT)
+  references TK_ILLUSTRATIONHD_POS (ORG_ID, BRANCH_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, DOCUMENT_NO, DOCUMENT_YEAR, APPLICATION_ID, ISSUE_COUNT);
+
+prompt
+prompt Creating table TK_ILL_POS_FUNDS
+prompt ===============================
+prompt
+create table TK_ILL_POS_FUNDS
+(
+  org_id            NUMBER not null,
+  branch_id         NUMBER not null,
+  main_product_code NUMBER not null,
+  sub_product_code  NUMBER not null,
+  document_no       VARCHAR2(10) not null,
+  document_year     NUMBER not null,
+  application_id    NUMBER not null,
+  issue_count       NUMBER not null,
+  fund_code         NUMBER not null,
+  created_by        VARCHAR2(50),
+  creation_date     DATE,
+  last_updated_by   VARCHAR2(50),
+  last_update_date  DATE,
+  fund_share        NUMBER,
+  serial_no         NUMBER
+)
+;
+alter table TK_ILL_POS_FUNDS
+  add constraint PK_ILL_POS_FUNDS primary key (ORG_ID, BRANCH_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, DOCUMENT_NO, DOCUMENT_YEAR, APPLICATION_ID, ISSUE_COUNT, FUND_CODE);
+alter table TK_ILL_POS_FUNDS
+  add constraint FK_FUNDS_HEADER foreign key (ORG_ID, BRANCH_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, DOCUMENT_NO, DOCUMENT_YEAR, APPLICATION_ID, ISSUE_COUNT)
+  references TK_ILLUSTRATIONHD_POS (ORG_ID, BRANCH_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, DOCUMENT_NO, DOCUMENT_YEAR, APPLICATION_ID, ISSUE_COUNT);
+alter table TK_ILL_POS_FUNDS
+  add constraint FK_ILL_POS_FUND_FUND foreign key (ORG_ID, FUND_CODE)
+  references FUND_SETUP_T (ORG_ID, FUND_CODE);
+
+prompt
+prompt Creating table TK_ILL_POS_LOADING
+prompt =================================
+prompt
+create table TK_ILL_POS_LOADING
+(
+  org_id                     NUMBER not null,
+  branch_id                  NUMBER not null,
+  main_product_code          NUMBER not null,
+  sub_product_code           NUMBER not null,
+  document_no                VARCHAR2(10) not null,
+  document_year              NUMBER not null,
+  application_id             NUMBER not null,
+  issue_count                NUMBER not null,
+  loading_type               VARCHAR2(10) not null,
+  loading_code               VARCHAR2(10),
+  loading_value              NUMBER,
+  created_by                 VARCHAR2(50),
+  creation_date              DATE,
+  last_updated_by            VARCHAR2(50),
+  last_update_date           DATE,
+  rider_term                 NUMBER,
+  loading_contribution       NUMBER,
+  payment_term               NUMBER,
+  sa_percent                 NUMBER,
+  monthly_amount             NUMBER,
+  rider_rate                 NUMBER,
+  loading_contribution_modal NUMBER,
+  loading_net_rate           NUMBER,
+  loading_net_contribution   NUMBER,
+  net_contribution_modal     NUMBER,
+  benefit_code               NUMBER not null
+)
+;
+alter table TK_ILL_POS_LOADING
+  add constraint PK_ILL_POS_LOADING primary key (ORG_ID, BRANCH_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, DOCUMENT_NO, DOCUMENT_YEAR, APPLICATION_ID, ISSUE_COUNT, LOADING_TYPE, BENEFIT_CODE);
+alter table TK_ILL_POS_LOADING
+  add constraint FK_LOADING_HEADER foreign key (ORG_ID, BRANCH_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, DOCUMENT_NO, DOCUMENT_YEAR, APPLICATION_ID, ISSUE_COUNT)
+  references TK_ILLUSTRATIONHD_POS (ORG_ID, BRANCH_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, DOCUMENT_NO, DOCUMENT_YEAR, APPLICATION_ID, ISSUE_COUNT);
+
+prompt
+prompt Creating table TK_ILL_POS_RIDERS
+prompt ================================
+prompt
+create table TK_ILL_POS_RIDERS
+(
+  org_id                      NUMBER not null,
+  branch_id                   NUMBER not null,
+  main_product_code           NUMBER not null,
+  sub_product_code            NUMBER not null,
+  document_no                 VARCHAR2(10) not null,
+  document_year               NUMBER not null,
+  application_id              NUMBER not null,
+  issue_count                 NUMBER not null,
+  benefit_code                NUMBER not null,
+  sum_assured                 NUMBER,
+  contribution                NUMBER,
+  created_by                  VARCHAR2(50),
+  creation_date               DATE,
+  last_updated_by             VARCHAR2(50),
+  last_update_date            DATE,
+  rider_term                  NUMBER,
+  payment_term                NUMBER,
+  sa_percent                  NUMBER,
+  monthly_amount              NUMBER,
+  rider_rate                  NUMBER,
+  mode_contribution           NUMBER,
+  rider_net_rate              NUMBER,
+  mode_net_contribution       NUMBER,
+  mode_loading_contribution   NUMBER,
+  annual_loading_contribution NUMBER,
+  decision_code               VARCHAR2(50),
+  net_contribution            NUMBER
+)
+;
+alter table TK_ILL_POS_RIDERS
+  add constraint PK_ILL_POS_RIDER primary key (ORG_ID, BRANCH_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, DOCUMENT_NO, DOCUMENT_YEAR, APPLICATION_ID, ISSUE_COUNT, BENEFIT_CODE);
+alter table TK_ILL_POS_RIDERS
+  add constraint FK_RIDER_HEADER foreign key (ORG_ID, BRANCH_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, DOCUMENT_NO, DOCUMENT_YEAR, APPLICATION_ID, ISSUE_COUNT)
+  references TK_ILLUSTRATIONHD_POS (ORG_ID, BRANCH_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, DOCUMENT_NO, DOCUMENT_YEAR, APPLICATION_ID, ISSUE_COUNT);
+
+prompt
+prompt Creating table TK_ILL_UNIT_MOVING
+prompt =================================
+prompt
+create table TK_ILL_UNIT_MOVING
+(
+  org_id            NUMBER not null,
+  branch_id         NUMBER not null,
+  main_product_code NUMBER not null,
+  sub_product_code  NUMBER not null,
+  takaful_type      VARCHAR2(1) not null,
+  document_type     VARCHAR2(1) not null,
+  document_no       VARCHAR2(10) not null,
+  record_type       VARCHAR2(1) not null,
+  document_year     VARCHAR2(10) not null,
+  issue_count       NUMBER not null,
+  endorsement_no    NUMBER not null,
+  application_id    NUMBER not null,
+  fund_code         NUMBER not null,
+  niv               NUMBER,
+  created_by        VARCHAR2(50),
+  creation_date     DATE,
+  last_updated_by   VARCHAR2(50),
+  last_update_date  DATE,
+  allocation_type   NUMBER not null
+)
+;
+alter table TK_ILL_UNIT_MOVING
+  add constraint PK_ILL_UNIT_MOVING primary key (ORG_ID, BRANCH_ID, MAIN_PRODUCT_CODE, SUB_PRODUCT_CODE, TAKAFUL_TYPE, DOCUMENT_TYPE, DOCUMENT_NO, RECORD_TYPE, DOCUMENT_YEAR, ISSUE_COUNT, ENDORSEMENT_NO, APPLICATION_ID, FUND_CODE, ALLOCATION_TYPE);
+
+prompt
+prompt Creating table TK_INFLATION_RATE_SETUP_T
+prompt ========================================
+prompt
+create table TK_INFLATION_RATE_SETUP_T
+(
+  org_id               NUMBER not null,
+  rate_id              NUMBER not null,
+  rate                 NUMBER,
+  effective_start_date DATE,
+  effective_end_date   DATE,
+  created_by           VARCHAR2(100),
+  creation_date        DATE,
+  last_updated_by      VARCHAR2(100),
+  last_update_date     DATE
+)
+;
+alter table TK_INFLATION_RATE_SETUP_T
+  add constraint TK_INFLATION_RATES_SETUP_PK primary key (ORG_ID, RATE_ID);
+
+prompt
+prompt Creating table TK_INVEST_REIMBURSEMENT_T
+prompt ========================================
+prompt
+create table TK_INVEST_REIMBURSEMENT_T
+(
+  org_id                  NUMBER not null,
+  branch_id               VARCHAR2(10) not null,
+  sub_product_code        VARCHAR2(10) not null,
+  claim_no                VARCHAR2(10) not null,
+  benefit_code            VARCHAR2(10) not null,
+  assessment_id           NUMBER not null,
+  serial_code             NUMBER not null,
+  investigator_code       VARCHAR2(10) not null,
+  code                    NUMBER not null,
+  claim_amount            NUMBER,
+  status                  VARCHAR2(3),
+  approve_amount          NUMBER,
+  request_date            DATE,
+  receive_date            DATE,
+  created_by              VARCHAR2(50),
+  creation_date           DATE,
+  last_updated_by         VARCHAR2(50),
+  last_update_date        DATE,
+  settlement_date         DATE,
+  payee_name              VARCHAR2(20),
+  remarks                 VARCHAR2(150),
+  voucher_no              VARCHAR2(10),
+  payment_source          VARCHAR2(5),
+  application_id          NUMBER not null,
+  post_tag                VARCHAR2(1),
+  post_by                 VARCHAR2(50),
+  post_date               DATE,
+  claim_year              VARCHAR2(4) not null,
+  advice_reference_no     VARCHAR2(20),
+  rev_advice_reference_no VARCHAR2(20),
+  reverse_tag             VARCHAR2(1),
+  reverse_by              VARCHAR2(50),
+  reverse_date            DATE
+)
+;
+alter table TK_INVEST_REIMBURSEMENT_T
+  add constraint PK_TK_INVEST_REIMBRUSEMENT_T primary key (ORG_ID, BRANCH_ID, SUB_PRODUCT_CODE, CLAIM_NO, INVESTIGATOR_CODE, SERIAL_CODE, CODE, BENEFIT_CODE, ASSESSMENT_ID, APPLICATION_ID, CLAIM_YEAR);
+
+prompt
+prompt Creating table TK_MONEY_TRANSFER_DETAIL_T
+prompt =========================================
+prompt
+create table TK_MONEY_TRANSFER_DETAIL_T
+(
+  org_id                   NUMBER not null,
+  branch_id                NUMBER not null,
+  money_transfer_id        NUMBER not null,
+  money_transfer_detail_id NUMBER not null,
+  transfer_from_doc_no     VARCHAR2(100),
+  transfer_from_amount     NUMBER(15,2),
+  created_by               VARCHAR2(50),
+  creation_date            DATE,
+  last_updated_by          VARCHAR2(50),
+  last_update_date         DATE,
+  source                   VARCHAR2(20)
+)
+;
+alter table TK_MONEY_TRANSFER_DETAIL_T
+  add constraint PK_TK_MONEY_TRSFR_DET primary key (ORG_ID, BRANCH_ID, MONEY_TRANSFER_ID, MONEY_TRANSFER_DETAIL_ID);
+
+prompt
+prompt Creating table TK_MONEY_TRANSFER_HEADER_T
+prompt =========================================
+prompt
+create table TK_MONEY_TRANSFER_HEADER_T
+(
+  org_id              NUMBER not null,
+  branch_id           NUMBER not null,
+  money_transfer_id   NUMBER not null,
+  transfer_to_doc_no  VARCHAR2(100),
+  transfer_to_amount  NUMBER(15,2),
+  created_by          VARCHAR2(50),
+  creation_date       DATE,
+  last_updated_by     VARCHAR2(50),
+  last_update_date    DATE,
+  money_transfer_desc VARCHAR2(250),
+  lock_flag           VARCHAR2(20),
+  post_flag           VARCHAR2(20),
+  transfer_date       DATE,
+  post_date           DATE,
+  transfer_reason     VARCHAR2(20),
+  request_date        DATE,
+  sett_reason         VARCHAR2(10),
+  posted_user_name    VARCHAR2(100),
+  locked_by_user_name VARCHAR2(100)
+)
+;
+alter table TK_MONEY_TRANSFER_HEADER_T
+  add constraint PK_TK_MONEY_TRSFR primary key (ORG_ID, BRANCH_ID, MONEY_TRANSFER_ID);
+
+prompt
+prompt Creating table TK_MORTALITY_RATE_HD_T
+prompt =====================================
+prompt
+create table TK_MORTALITY_RATE_HD_T
+(
+  org_id               NUMBER not null,
+  rate_code            NUMBER not null,
+  rate_name            VARCHAR2(50),
+  effective_start_date DATE,
+  effective_end_date   DATE,
+  created_by           VARCHAR2(50),
+  creation_date        DATE,
+  last_updated_by      VARCHAR2(50),
+  last_update_date     DATE
+)
+;
+alter table TK_MORTALITY_RATE_HD_T
+  add constraint PK_MORT_RATE_HEAD primary key (ORG_ID, RATE_CODE);
+alter table TK_MORTALITY_RATE_HD_T
+  add constraint FK_ORG_MORT_RATE foreign key (ORG_ID)
+  references TK_ORGANIZATION_SETUP_T (ORG_ID);
+
+prompt
+prompt Creating table TK_MORTALITY_RATE_DETAIL_T
+prompt =========================================
+prompt
+create table TK_MORTALITY_RATE_DETAIL_T
+(
+  org_id           NUMBER not null,
+  rate_code        NUMBER not null,
+  rate_detail_code NUMBER not null,
+  m_age            NUMBER,
+  m_year           NUMBER,
+  m_rate           NUMBER,
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE,
+  gender           VARCHAR2(50)
+)
+;
+alter table TK_MORTALITY_RATE_DETAIL_T
+  add constraint PK_MORT_RATE_DTL primary key (ORG_ID, RATE_CODE, RATE_DETAIL_CODE);
+alter table TK_MORTALITY_RATE_DETAIL_T
+  add constraint FK_MORT_RATE_DTL foreign key (ORG_ID, RATE_CODE)
+  references TK_MORTALITY_RATE_HD_T (ORG_ID, RATE_CODE);
+
+prompt
+prompt Creating table TK_MORTALITY_RATE_REINSURER_T
+prompt ============================================
+prompt
+create table TK_MORTALITY_RATE_REINSURER_T
+(
+  org_id           NUMBER not null,
+  m_id             NUMBER not null,
+  m_age            NUMBER,
+  m_year           NUMBER,
+  m_rate           NUMBER,
+  created_by       VARCHAR2(100),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(100),
+  last_update_date DATE
+)
+;
+alter table TK_MORTALITY_RATE_REINSURER_T
+  add constraint TK_MORTALITY_RATE_REINSURER_PK primary key (ORG_ID, M_ID);
+
+prompt
+prompt Creating table TK_MORTALITY_RATE_T
+prompt ==================================
+prompt
+create table TK_MORTALITY_RATE_T
+(
+  org_id           NUMBER not null,
+  m_id             NUMBER not null,
+  m_age            NUMBER,
+  m_year           NUMBER,
+  m_rate           NUMBER,
+  created_by       VARCHAR2(100),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(100),
+  last_update_date DATE
+)
+;
+alter table TK_MORTALITY_RATE_T
+  add constraint TK_MORTALITY_RATE_PK primary key (ORG_ID, M_ID);
+
+prompt
+prompt Creating table TK_NOMINAL_RATE_SETUP_T
+prompt ======================================
+prompt
+create table TK_NOMINAL_RATE_SETUP_T
+(
+  org_id               NUMBER not null,
+  rate_id              NUMBER not null,
+  rate                 NUMBER,
+  effective_start_date DATE,
+  effective_end_date   DATE,
+  created_by           VARCHAR2(100),
+  creation_date        DATE,
+  last_updated_by      VARCHAR2(100),
+  last_update_date     DATE
+)
+;
+alter table TK_NOMINAL_RATE_SETUP_T
+  add constraint TK_NOM_RATES_SETUP_PK primary key (ORG_ID, RATE_ID);
+
+prompt
+prompt Creating table TK_ORGANIZATION_API_SETUP_T
+prompt ==========================================
+prompt
+create table TK_ORGANIZATION_API_SETUP_T
+(
+  org_id           NUMBER not null,
+  record_id        NUMBER not null,
+  api_key          VARCHAR2(200),
+  api_url          VARCHAR2(200),
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE
+)
+;
+alter table TK_ORGANIZATION_API_SETUP_T
+  add constraint PK_TK_ORGANIZATION_API_SETUP_T primary key (ORG_ID, RECORD_ID);
+
+prompt
+prompt Creating table TK_ORG_API_CR_SETUP_T
+prompt ====================================
+prompt
+create table TK_ORG_API_CR_SETUP_T
+(
+  org_id           NUMBER not null,
+  record_id        NUMBER not null,
+  user_name        VARCHAR2(100),
+  user_password    VARCHAR2(100),
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE
+)
+;
+alter table TK_ORG_API_CR_SETUP_T
+  add constraint PK_TK_ORG_API_CR_SETUP_T primary key (ORG_ID, RECORD_ID);
+
+prompt
+prompt Creating table TK_PERIOD_SETUP_T
+prompt ================================
+prompt
+create table TK_PERIOD_SETUP_T
+(
+  org_id            NUMBER not null,
+  fiscal_year       VARCHAR2(4) not null,
+  periond_number    NUMBER not null,
+  from_date         DATE,
+  to_date           DATE,
+  start_period      VARCHAR2(1),
+  claim_status      VARCHAR2(1),
+  undwt_status      VARCHAR2(1),
+  created_by        VARCHAR2(50),
+  creation_date     DATE,
+  last_updated_by   VARCHAR2(50),
+  last_update_date  DATE,
+  application_id    NUMBER not null,
+  branch_id         NUMBER not null,
+  undwt_freeze_tag  VARCHAR2(1),
+  claim_freeze_tag  VARCHAR2(1),
+  undwd_freeze_date DATE,
+  claim_freeze_date DATE,
+  undwt_freeze_date DATE
+)
+;
+create unique index TK_PERIOD_SETUP_T_PK1 on TK_PERIOD_SETUP_T (ORG_ID, APPLICATION_ID, BRANCH_ID, FISCAL_YEAR, PERIOND_NUMBER);
+alter table TK_PERIOD_SETUP_T
+  add constraint TK_PERIOD_SETUP_T_PK2 primary key (ORG_ID, APPLICATION_ID, BRANCH_ID, FISCAL_YEAR, PERIOND_NUMBER);
+
+prompt
+prompt Creating table TK_RATES_SETUP_T
+prompt ===============================
+prompt
+create table TK_RATES_SETUP_T
+(
+  org_id           NUMBER not null,
+  type_id          NUMBER not null,
+  no_of_years      NUMBER not null,
+  rate             NUMBER,
+  created_by       VARCHAR2(100),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(100),
+  last_update_date DATE
+)
+;
+alter table TK_RATES_SETUP_T
+  add constraint TK_RATES_SETUP_PK primary key (ORG_ID, TYPE_ID, NO_OF_YEARS);
+
+prompt
+prompt Creating table TK_RATE_TYPE_SETUP_T
+prompt ===================================
+prompt
+create table TK_RATE_TYPE_SETUP_T
+(
+  org_id           NUMBER not null,
+  type_id          NUMBER not null,
+  type_desc        VARCHAR2(250),
+  active           VARCHAR2(1),
+  created_by       VARCHAR2(100),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(100),
+  last_update_date DATE
+)
+;
+alter table TK_RATE_TYPE_SETUP_T
+  add constraint TK_RATE_TYPE_SETUP_PK primary key (ORG_ID, TYPE_ID);
+
+prompt
+prompt Creating table TK_RIDER_SETUP_T
+prompt ===============================
+prompt
+create table TK_RIDER_SETUP_T
+(
+  org_id           NUMBER not null,
+  code             NUMBER not null,
+  description      VARCHAR2(200) not null,
+  active           VARCHAR2(1),
+  rate             NUMBER,
+  rate_type        VARCHAR2(2),
+  created_by       VARCHAR2(100),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(100),
+  last_update_date DATE
+)
+;
+alter table TK_RIDER_SETUP_T
+  add constraint pk_TK_RIDER_SETUP_T primary key (ORG_ID, CODE);
+
+prompt
+prompt Creating table TK_RUN_CALCULATION_LOGS_T
+prompt ========================================
+prompt
+create table TK_RUN_CALCULATION_LOGS_T
+(
+  org_id             NUMBER not null,
+  branch_id          NUMBER not null,
+  product_code       NUMBER not null,
+  sub_product_code   NUMBER not null,
+  takaful_type       VARCHAR2(1) not null,
+  document_type      VARCHAR2(1) not null,
+  document_no        VARCHAR2(10) not null,
+  record_type        VARCHAR2(1) not null,
+  document_year      VARCHAR2(10) not null,
+  issue_count        NUMBER not null,
+  endorsement_no     NUMBER not null,
+  application_id     NUMBER not null,
+  process_id         NUMBER not null,
+  process_start_date DATE,
+  process_end_date   DATE,
+  creation_date      DATE,
+  created_by         VARCHAR2(50),
+  last_update_date   DATE,
+  last_updated_by    VARCHAR2(50),
+  status_message     VARCHAR2(1000)
+)
+;
+alter table TK_RUN_CALCULATION_LOGS_T
+  add constraint PK_RUN_CALCULATION_LOGS primary key (ORG_ID, BRANCH_ID, PRODUCT_CODE, SUB_PRODUCT_CODE, TAKAFUL_TYPE, DOCUMENT_TYPE, DOCUMENT_NO, RECORD_TYPE, DOCUMENT_YEAR, ISSUE_COUNT, ENDORSEMENT_NO, APPLICATION_ID, PROCESS_ID);
+
+prompt
+prompt Creating table TK_SUB_CLASS_CHARGES_T
+prompt =====================================
+prompt
+create table TK_SUB_CLASS_CHARGES_T
+(
+  org_id           NUMBER not null,
+  b_class_code     VARCHAR2(10) not null,
+  sub_class_code   VARCHAR2(10) not null,
+  charge_code      NUMBER not null,
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE
+)
+;
+alter table TK_SUB_CLASS_CHARGES_T
+  add constraint PK_TK_SUB_CLASS_CHARGES_T primary key (ORG_ID, B_CLASS_CODE, SUB_CLASS_CODE, CHARGE_CODE);
+alter table TK_SUB_CLASS_CHARGES_T
+  add constraint FK_CHARGE_SUBCLASS_CHARGE foreign key (ORG_ID, CHARGE_CODE)
+  references TK_CHARGES_SETUP_T (ORG_ID, CHARGE_CODE);
+alter table TK_SUB_CLASS_CHARGES_T
+  add constraint FK_ORG_SC_CHARGE foreign key (ORG_ID)
+  references TK_ORGANIZATION_SETUP_T (ORG_ID);
+alter table TK_SUB_CLASS_CHARGES_T
+  add constraint FK_SUBCLASS_SUBCLASS_CHARGE foreign key (ORG_ID, B_CLASS_CODE, SUB_CLASS_CODE)
+  references TK_SUB_CLASS_SETUP_T (ORG_ID, B_CLASS_CODE, SUB_CLASS_CODE);
+
+prompt
+prompt Creating table TK_SUB_CLASS_CLAUSES_T
+prompt =====================================
+prompt
+create table TK_SUB_CLASS_CLAUSES_T
+(
+  org_id           NUMBER not null,
+  b_class_code     VARCHAR2(10) not null,
+  sub_class_code   VARCHAR2(10) not null,
+  clause_code      VARCHAR2(10) not null,
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE
+)
+;
+alter table TK_SUB_CLASS_CLAUSES_T
+  add constraint PK_TK_SUB_CLASS_CLAUSES_T primary key (ORG_ID, B_CLASS_CODE, SUB_CLASS_CODE, CLAUSE_CODE);
+alter table TK_SUB_CLASS_CLAUSES_T
+  add constraint FK_CLAUSE_SUBCLASS_CLAUSE foreign key (ORG_ID, B_CLASS_CODE, CLAUSE_CODE)
+  references TK_CLAUSES_SETUP_T (ORG_ID, B_CLASS_CODE, CLAUSE_CODE);
+alter table TK_SUB_CLASS_CLAUSES_T
+  add constraint FK_ORG_SC_CLAUSE foreign key (ORG_ID)
+  references TK_ORGANIZATION_SETUP_T (ORG_ID);
+alter table TK_SUB_CLASS_CLAUSES_T
+  add constraint FK_SUBCLASS_SUBCLASS_CLAUSE foreign key (ORG_ID, B_CLASS_CODE, SUB_CLASS_CODE)
+  references TK_SUB_CLASS_SETUP_T (ORG_ID, B_CLASS_CODE, SUB_CLASS_CODE);
+
+prompt
+prompt Creating table TK_SUB_CLASS_FACTORS_T
+prompt =====================================
+prompt
+create table TK_SUB_CLASS_FACTORS_T
+(
+  org_id           NUMBER not null,
+  b_class_code     VARCHAR2(10) not null,
+  sub_class_code   VARCHAR2(10) not null,
+  factor_code      VARCHAR2(10) not null,
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE
+)
+;
+alter table TK_SUB_CLASS_FACTORS_T
+  add constraint PK_TK_SUB_CLASS_FACTORS_T primary key (ORG_ID, B_CLASS_CODE, SUB_CLASS_CODE, FACTOR_CODE);
+alter table TK_SUB_CLASS_FACTORS_T
+  add constraint FK_FACTOR_SUBCLASS_FACTOR foreign key (ORG_ID, B_CLASS_CODE, FACTOR_CODE)
+  references TK_FACTOR_SETUP_T (ORG_ID, B_CLASS_CODE, FACTOR_CODE);
+alter table TK_SUB_CLASS_FACTORS_T
+  add constraint FK_ORG_SC_FATORS foreign key (ORG_ID)
+  references TK_ORGANIZATION_SETUP_T (ORG_ID);
+alter table TK_SUB_CLASS_FACTORS_T
+  add constraint FK_SUBCLASS_SUBCLASS_FACTOR foreign key (ORG_ID, B_CLASS_CODE, SUB_CLASS_CODE)
+  references TK_SUB_CLASS_SETUP_T (ORG_ID, B_CLASS_CODE, SUB_CLASS_CODE);
+
+prompt
+prompt Creating table TK_SUB_PRODUCT_CONDITION_MAP_T
+prompt =============================================
+prompt
+create table TK_SUB_PRODUCT_CONDITION_MAP_T
+(
+  sub_product_id   NUMBER not null,
+  cn_code          NUMBER not null,
+  default_tag      VARCHAR2(1),
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE,
+  org_id           NUMBER not null
+)
+;
+alter table TK_SUB_PRODUCT_CONDITION_MAP_T
+  add constraint TK_SUB_PRODUCT_CONDITION_M_PK primary key (SUB_PRODUCT_ID, CN_CODE, ORG_ID);
+
+prompt
+prompt Creating table TK_SUB_PRODUCT_COVER_T
+prompt =====================================
+prompt
+create table TK_SUB_PRODUCT_COVER_T
+(
+  org_id           NUMBER not null,
+  sub_product_code NUMBER not null,
+  cover_code       NUMBER not null,
+  default_tag      VARCHAR2(1),
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE,
+  age_from         NUMBER not null,
+  age_to           NUMBER not null
+)
+;
+alter table TK_SUB_PRODUCT_COVER_T
+  add constraint TK_SUB_PRODUCT_COVER_T_PK primary key (ORG_ID, SUB_PRODUCT_CODE, COVER_CODE, AGE_FROM, AGE_TO);
+
+prompt
+prompt Creating table TK_SUB_PRODUCT_EXCLUSION_MAP_T
+prompt =============================================
+prompt
+create table TK_SUB_PRODUCT_EXCLUSION_MAP_T
+(
+  sub_product_id   NUMBER not null,
+  ex_code          NUMBER not null,
+  default_tag      VARCHAR2(1),
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE,
+  org_id           NUMBER not null
+)
+;
+alter table TK_SUB_PRODUCT_EXCLUSION_MAP_T
+  add constraint TK_SUB_PRODUCT_EXCLUSION_M_PK primary key (SUB_PRODUCT_ID, EX_CODE, ORG_ID);
+
+prompt
+prompt Creating table TK_VARIABLE_SETUP_T
+prompt ==================================
+prompt
+create table TK_VARIABLE_SETUP_T
+(
+  org_id                NUMBER not null,
+  variable_code         VARCHAR2(100) not null,
+  variable_name         VARCHAR2(250),
+  variable_query        VARCHAR2(4000),
+  effective_start_date  DATE,
+  effective_end_date    DATE,
+  variable_type         VARCHAR2(10),
+  variable_query_detail VARCHAR2(4000),
+  created_by            VARCHAR2(50),
+  creation_date         DATE,
+  last_updated_by       VARCHAR2(50),
+  last_update_date      DATE,
+  module_code           VARCHAR2(10)
+)
+;
+alter table TK_VARIABLE_SETUP_T
+  add constraint PK_TK_VAR_SETUP primary key (ORG_ID, VARIABLE_CODE);
+alter table TK_VARIABLE_SETUP_T
+  add constraint FK_TK_VAR_ORG foreign key (ORG_ID)
+  references TK_ORGANIZATION_SETUP_T (ORG_ID);
+
+prompt
+prompt Creating table TOAD_PLAN_TABLE
+prompt ==============================
+prompt
+create table TOAD_PLAN_TABLE
+(
+  statement_id      VARCHAR2(30),
+  plan_id           NUMBER,
+  timestamp         DATE,
+  remarks           VARCHAR2(4000),
+  operation         VARCHAR2(30),
+  options           VARCHAR2(255),
+  object_node       VARCHAR2(128),
+  object_owner      VARCHAR2(30),
+  object_name       VARCHAR2(30),
+  object_alias      VARCHAR2(65),
+  object_instance   INTEGER,
+  object_type       VARCHAR2(30),
+  optimizer         VARCHAR2(255),
+  search_columns    NUMBER,
+  id                INTEGER,
+  parent_id         INTEGER,
+  depth             INTEGER,
+  position          INTEGER,
+  cost              INTEGER,
+  cardinality       INTEGER,
+  bytes             INTEGER,
+  other_tag         VARCHAR2(255),
+  partition_start   VARCHAR2(255),
+  partition_stop    VARCHAR2(255),
+  partition_id      INTEGER,
+  other             LONG,
+  distribution      VARCHAR2(30),
+  cpu_cost          INTEGER,
+  io_cost           INTEGER,
+  temp_space        INTEGER,
+  access_predicates VARCHAR2(4000),
+  filter_predicates VARCHAR2(4000),
+  projection        VARCHAR2(4000),
+  time              INTEGER,
+  qblock_name       VARCHAR2(30),
+  other_xml         CLOB
+)
+;
+
+prompt
+prompt Creating table TRAVEL_BENEFIT_T
+prompt ===============================
+prompt
+create table TRAVEL_BENEFIT_T
+(
+  org_id            NUMBER not null,
+  travel_benefit_id NUMBER not null,
+  benefit_desc      VARCHAR2(500),
+  created_by        VARCHAR2(50),
+  creation_date     DATE,
+  last_updated_by   VARCHAR2(50),
+  last_update_date  DATE,
+  branch_id         NUMBER not null
+)
+;
+alter table TRAVEL_BENEFIT_T
+  add constraint PK_TRAVEL_BENEFIT_T primary key (ORG_ID, BRANCH_ID, TRAVEL_BENEFIT_ID);
+
+prompt
+prompt Creating table TRAVEL_INSURED_FAMILY_INFO_T
+prompt ===========================================
+prompt
+create table TRAVEL_INSURED_FAMILY_INFO_T
+(
+  org_id           NUMBER not null,
+  document_number  VARCHAR2(6) not null,
+  policy_number    VARCHAR2(30) not null,
+  family_info_code NUMBER not null,
+  name             VARCHAR2(50),
+  gender           VARCHAR2(1),
+  relation         VARCHAR2(1),
+  date_of_birth    DATE,
+  passport_number  VARCHAR2(20),
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE,
+  branch_id        NUMBER not null
+)
+;
+alter table TRAVEL_INSURED_FAMILY_INFO_T
+  add constraint PK_INSURED_FAMILY_T primary key (ORG_ID, BRANCH_ID, DOCUMENT_NUMBER, POLICY_NUMBER, FAMILY_INFO_CODE);
+
+prompt
+prompt Creating table TRAVEL_INVOICE_DETAIL_T
+prompt ======================================
+prompt
+create table TRAVEL_INVOICE_DETAIL_T
+(
+  org_id             NUMBER not null,
+  invoice_no         NUMBER not null,
+  serial_no          NUMBER not null,
+  policy_number      VARCHAR2(50),
+  total_contribution NUMBER(15,2),
+  total_payable      NUMBER(15,2),
+  agent_commission   NUMBER(15,2),
+  agent              VARCHAR2(50),
+  created_by         VARCHAR2(50),
+  creation_date      DATE,
+  last_updated_by    VARCHAR2(50),
+  last_update_date   DATE,
+  agent_amount       NUMBER(15,2),
+  branch_id          NUMBER not null
+)
+;
+alter table TRAVEL_INVOICE_DETAIL_T
+  add constraint PK_TRAVEL_INVOICE_DTL primary key (ORG_ID, BRANCH_ID, INVOICE_NO, SERIAL_NO);
+
+prompt
+prompt Creating table TRAVEL_INVOICE_HEADER_T
+prompt ======================================
+prompt
+create table TRAVEL_INVOICE_HEADER_T
+(
+  org_id             NUMBER not null,
+  invoice_no         NUMBER not null,
+  invoice_date       DATE,
+  from_date          DATE,
+  to_date            DATE,
+  agent              VARCHAR2(150),
+  total_contribution NUMBER(15,2),
+  total_payable      NUMBER(15,2),
+  lock_flag          VARCHAR2(20),
+  posted_user_name   VARCHAR2(50),
+  post_flag          VARCHAR2(20),
+  post_date          DATE,
+  created_by         VARCHAR2(50),
+  creation_date      DATE,
+  last_updated_by    VARCHAR2(50),
+  last_update_date   DATE,
+  settled_tag        VARCHAR2(10),
+  commission_type    VARCHAR2(2),
+  branch_id          NUMBER not null
+)
+;
+alter table TRAVEL_INVOICE_HEADER_T
+  add constraint TRAVEL_INVOICE_HEADER_T primary key (ORG_ID, BRANCH_ID, INVOICE_NO);
+
+prompt
+prompt Creating table TRAVEL_PLAN_PRICE_T
+prompt ==================================
+prompt
+create table TRAVEL_PLAN_PRICE_T
+(
+  org_id           NUMBER not null,
+  tp_id            NUMBER not null,
+  plan_price_id    NUMBER not null,
+  individual_price NUMBER,
+  family_price     NUMBER,
+  nm_of_days       NUMBER,
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE,
+  branch_id        NUMBER not null,
+  trip_type        VARCHAR2(1)
+)
+;
+alter table TRAVEL_PLAN_PRICE_T
+  add constraint PK_TP_PRICE_T primary key (ORG_ID, TP_ID, PLAN_PRICE_ID, BRANCH_ID);
+
+prompt
+prompt Creating table TRAVEL_PLAN_T
+prompt ============================
+prompt
+create table TRAVEL_PLAN_T
+(
+  org_id               NUMBER not null,
+  tp_id                NUMBER not null,
+  plan_name            VARCHAR2(100),
+  created_by           VARCHAR2(50),
+  creation_date        DATE,
+  last_updated_by      VARCHAR2(50),
+  last_update_date     DATE,
+  geographical_mapping VARCHAR2(250),
+  branch_id            NUMBER not null,
+  age_from             NUMBER,
+  age_from_type        VARCHAR2(1),
+  age_to               NUMBER
+)
+;
+alter table TRAVEL_PLAN_T
+  add constraint PK_TRAVEL_PLAN_T primary key (ORG_ID, TP_ID, BRANCH_ID);
+
+prompt
+prompt Creating table TRAVEL_PR_DETAIL_T
+prompt =================================
+prompt
+create table TRAVEL_PR_DETAIL_T
+(
+  org_id             NUMBER not null,
+  pr_no              VARCHAR2(30) not null,
+  invoice_no         NUMBER not null,
+  total_contribution NUMBER(15,2),
+  total_payable      NUMBER(15,2),
+  created_by         VARCHAR2(50),
+  creation_date      DATE,
+  last_updated_by    VARCHAR2(50),
+  last_update_date   DATE,
+  instrument_amount  NUMBER,
+  branch_id          NUMBER not null
+)
+;
+alter table TRAVEL_PR_DETAIL_T
+  add constraint PK_TRAVEL_PR_DTL_T primary key (ORG_ID, BRANCH_ID, INVOICE_NO, PR_NO);
+
+prompt
+prompt Creating table TRAVEL_PR_HEADER_T
+prompt =================================
+prompt
+create table TRAVEL_PR_HEADER_T
+(
+  org_id            NUMBER not null,
+  pr_no             VARCHAR2(30) not null,
+  pr_date           DATE,
+  agent             VARCHAR2(50),
+  from_date         DATE,
+  to_date           DATE,
+  bank_code         VARCHAR2(50),
+  branch_code       VARCHAR2(50),
+  bank_account      VARCHAR2(50),
+  instrument_type   VARCHAR2(50),
+  instrument_number VARCHAR2(50),
+  instrument_date   DATE,
+  instrument_amount NUMBER,
+  drawn_on          VARCHAR2(200),
+  drawn_on_bank     VARCHAR2(50),
+  reason            VARCHAR2(50),
+  created_by        VARCHAR2(50),
+  creation_date     DATE,
+  last_updated_by   VARCHAR2(50),
+  last_update_date  DATE,
+  lock_check        NVARCHAR2(20),
+  lock_date         DATE,
+  lock_by           VARCHAR2(20),
+  remarks           VARCHAR2(500),
+  lock_flag         VARCHAR2(20),
+  post_flag         VARCHAR2(20),
+  post_date         DATE,
+  posted_user_name  VARCHAR2(50),
+  invoice_no        VARCHAR2(200),
+  settled_tag       VARCHAR2(10),
+  branch_id         NUMBER not null
+)
+;
+alter table TRAVEL_PR_HEADER_T
+  add constraint PK_TRAVEL_PR_HEADER primary key (ORG_ID, BRANCH_ID, PR_NO);
+
+prompt
+prompt Creating table TRAVLE_POLICY_T
+prompt ==============================
+prompt
+create table TRAVLE_POLICY_T
+(
+  org_id              NUMBER not null,
+  document_number     VARCHAR2(100) not null,
+  plan_type           VARCHAR2(200),
+  policy_number       VARCHAR2(200) not null,
+  full_name           VARCHAR2(50),
+  mobile_no           VARCHAR2(20),
+  email               VARCHAR2(100),
+  plan                VARCHAR2(5),
+  destination         VARCHAR2(50),
+  start_date          DATE,
+  date_of_birth       DATE,
+  filer               VARCHAR2(50),
+  cnic_no             VARCHAR2(20),
+  cnic_issue_date     DATE,
+  nm_of_days          VARCHAR2(20),
+  contribution_amount NUMBER,
+  passport_no         VARCHAR2(20),
+  no_of_dependent     NUMBER,
+  spouse_name         VARCHAR2(50),
+  child_name_1        VARCHAR2(50),
+  child_name_2        VARCHAR2(50),
+  child_name_3        VARCHAR2(50),
+  child_name_4        VARCHAR2(50),
+  policy_status       VARCHAR2(20),
+  created_by          VARCHAR2(50),
+  creation_date       DATE,
+  last_updated_by     VARCHAR2(50),
+  last_update_date    DATE,
+  destination_country VARCHAR2(5),
+  destination_state   VARCHAR2(5),
+  destination_city    VARCHAR2(5),
+  cancel_status       VARCHAR2(1),
+  address             VARCHAR2(200),
+  travel_purpose      VARCHAR2(1),
+  destination2        VARCHAR2(4),
+  invoice_tag         VARCHAR2(10),
+  clear_by            VARCHAR2(50),
+  clear_at            DATE,
+  branch_id           NUMBER not null,
+  age_at_entry        NUMBER,
+  over_age            VARCHAR2(1),
+  allow_over_age      VARCHAR2(1),
+  age_type            VARCHAR2(1)
+)
+;
+alter table TRAVLE_POLICY_T
+  add constraint PK_TRAVEL_POLICY_T primary key (ORG_ID, DOCUMENT_NUMBER, POLICY_NUMBER, BRANCH_ID);
+
+prompt
+prompt Creating table TT_DOCUMENT_REQUIREMENT_MAP_T
+prompt ============================================
+prompt
+create table TT_DOCUMENT_REQUIREMENT_MAP_T
+(
+  org_id               NUMBER not null,
+  application_id       NUMBER not null,
+  ticket_type_id       NUMBER not null,
+  ticket_sub_type_id   NUMBER not null,
+  doc_requirement_code NUMBER not null,
+  required_document    VARCHAR2(200),
+  is_mandatory         VARCHAR2(1),
+  is_default           VARCHAR2(1),
+  created_by           VARCHAR2(50),
+  creation_date        DATE,
+  last_updated_by      VARCHAR2(50),
+  last_update_date     DATE
+)
+;
+alter table TT_DOCUMENT_REQUIREMENT_MAP_T
+  add primary key (ORG_ID, APPLICATION_ID, TICKET_TYPE_ID, TICKET_SUB_TYPE_ID, DOC_REQUIREMENT_CODE);
+
+prompt
+prompt Creating table TYPES_OF_LETTER_SETUP_T
+prompt ======================================
+prompt
+create table TYPES_OF_LETTER_SETUP_T
+(
+  org_id           NUMBER not null,
+  type_id          NUMBER not null,
+  type_name        VARCHAR2(500),
+  active           VARCHAR2(1),
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE
+)
+;
+alter table TYPES_OF_LETTER_SETUP_T
+  add constraint PK_TYPES_OF_LETTER primary key (ORG_ID, TYPE_ID);
+
+prompt
+prompt Creating table UCR_DETAIL_T
+prompt ===========================
+prompt
+create table UCR_DETAIL_T
+(
+  org_id                   NUMBER not null,
+  application_id           NUMBER not null,
+  branch_id                NUMBER not null,
+  process_id               NUMBER not null,
+  serial_code              NUMBER not null,
+  client_desc              VARCHAR2(100),
+  policy_no                VARCHAR2(15),
+  alteration_type          VARCHAR2(50),
+  record_type              VARCHAR2(1),
+  item_no                  NUMBER,
+  first_name               VARCHAR2(100),
+  cnic_no                  VARCHAR2(15),
+  date_of_birth            DATE,
+  age                      NUMBER,
+  policy_start_date        DATE,
+  policy_end_date          DATE,
+  contract_start_date      DATE,
+  contract_end_date        DATE,
+  payment_mode             VARCHAR2(1),
+  endorsement_no           NUMBER,
+  loading_percentage       NUMBER,
+  benefit_code             NUMBER,
+  benefit_desc             VARCHAR2(100),
+  benefit_type             VARCHAR2(1),
+  sum_assured              NUMBER,
+  net_rate                 NUMBER,
+  gross_rate               NUMBER,
+  retention_sa             NUMBER,
+  quota_share_sa           NUMBER,
+  installment_no           NUMBER,
+  inst_date_from           DATE,
+  inst_date_to             DATE,
+  gross_contribution       NUMBER,
+  wakala_amount            NUMBER,
+  special_discount         NUMBER,
+  gross_cont_after_disc    NUMBER,
+  quota_share_contribution NUMBER,
+  osf                      NUMBER,
+  ptf                      NUMBER,
+  posting_tag              VARCHAR2(1),
+  post_user                VARCHAR2(50),
+  post_date                DATE,
+  created_by               VARCHAR2(50),
+  creation_date            DATE,
+  last_updated_by          VARCHAR2(50),
+  last_update_date         DATE,
+  regular_or_alt           VARCHAR2(1),
+  mode_of_payment          NUMBER,
+  gross_premium            NUMBER,
+  net_premium              NUMBER,
+  policy_year              NUMBER,
+  contract_year            NUMBER,
+  policy_date_lag          NUMBER,
+  contract_date_lag        NUMBER,
+  life_non_life            VARCHAR2(1),
+  final_period             NUMBER,
+  ucr_factor               NUMBER,
+  gross_ucr                NUMBER,
+  ri_ucr                   NUMBER,
+  ue_wakala                NUMBER,
+  gross_sar                NUMBER,
+  retakaful_sar            NUMBER,
+  ri_percent               NUMBER,
+  fy                       NUMBER,
+  installment_days         NUMBER
+)
+;
+alter table UCR_DETAIL_T
+  add constraint PK_UCR_DETAIL_T primary key (ORG_ID, APPLICATION_ID, BRANCH_ID, PROCESS_ID, SERIAL_CODE);
+
+prompt
+prompt Creating table UCR_HEADER_T
+prompt ===========================
+prompt
+create table UCR_HEADER_T
+(
+  org_id           NUMBER not null,
+  application_id   NUMBER not null,
+  branch_id        NUMBER not null,
+  date_from        DATE,
+  date_to          DATE,
+  process_id       NUMBER not null,
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE
+)
+;
+alter table UCR_HEADER_T
+  add constraint PK_UCR_HEADER_T primary key (ORG_ID, APPLICATION_ID, BRANCH_ID, PROCESS_ID);
+
+prompt
+prompt Creating table UNIT_TESTING_HISTORY_T
+prompt =====================================
+prompt
+create table UNIT_TESTING_HISTORY_T
+(
+  serial_no      NUMBER not null,
+  test_id        NUMBER not null,
+  given_input    VARCHAR2(1000),
+  test_status    VARCHAR2(50),
+  status_message VARCHAR2(4000),
+  created_by     VARCHAR2(50),
+  creation_date  DATE
+)
+;
+alter table UNIT_TESTING_HISTORY_T
+  add constraint PK_UNIT_TEST_HIST primary key (SERIAL_NO, TEST_ID);
+
+prompt
+prompt Creating table UNIT_TESTING_T
+prompt =============================
+prompt
+create table UNIT_TESTING_T
+(
+  org_id           NUMBER not null,
+  test_id          NUMBER not null,
+  test_name        VARCHAR2(500),
+  class_name       VARCHAR2(500),
+  module_name      VARCHAR2(500),
+  last_run_date    DATE,
+  last_run_status  VARCHAR2(10),
+  api_path         VARCHAR2(500),
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE,
+  valid_input      VARCHAR2(1000),
+  given_input      VARCHAR2(1000)
+)
+;
+alter table UNIT_TESTING_T
+  add primary key (ORG_ID, TEST_ID);
+
+prompt
+prompt Creating table UPLOAD_FILER_L_PAYLOAD_T
+prompt =======================================
+prompt
+create table UPLOAD_FILER_L_PAYLOAD_T
+(
+  org_id            NUMBER not null,
+  payroll_id        NUMBER,
+  payroll_period_id NUMBER,
+  upload_filer_id   NUMBER not null,
+  cnic              VARCHAR2(20),
+  created_by        VARCHAR2(50),
+  creation_date     DATE,
+  last_updated_by   VARCHAR2(50),
+  last_update_date  DATE
+)
+;
+alter table UPLOAD_FILER_L_PAYLOAD_T
+  add primary key (ORG_ID, UPLOAD_FILER_ID);
+
+prompt
+prompt Creating table UPLOAD_RATES_INTERFACE_TABLE
+prompt ===========================================
+prompt
+create table UPLOAD_RATES_INTERFACE_TABLE
+(
+  upload_id       NUMBER not null,
+  term            NUMBER,
+  policy_year_1   NUMBER,
+  policy_year_2   NUMBER,
+  policy_year_3   NUMBER,
+  policy_year_4   NUMBER,
+  policy_year_5   NUMBER,
+  policy_year_6   NUMBER,
+  policy_year_7   NUMBER,
+  policy_year_8   NUMBER,
+  policy_year_9   NUMBER,
+  policy_year_10  NUMBER,
+  policy_year_11  NUMBER,
+  policy_year_12  NUMBER,
+  policy_year_13  NUMBER,
+  policy_year_14  NUMBER,
+  policy_year_15  NUMBER,
+  policy_year_16  NUMBER,
+  policy_year_17  NUMBER,
+  policy_year_18  NUMBER,
+  policy_year_19  NUMBER,
+  policy_year_20  NUMBER,
+  policy_year_21  NUMBER,
+  policy_year_22  NUMBER,
+  policy_year_23  NUMBER,
+  policy_year_24  NUMBER,
+  policy_year_25  NUMBER,
+  policy_year_26  NUMBER,
+  policy_year_27  NUMBER,
+  policy_year_28  NUMBER,
+  policy_year_29  NUMBER,
+  policy_year_30  NUMBER,
+  policy_year_31  NUMBER,
+  policy_year_32  NUMBER,
+  policy_year_33  NUMBER,
+  policy_year_34  NUMBER,
+  policy_year_35  NUMBER,
+  policy_year_36  NUMBER,
+  policy_year_37  NUMBER,
+  policy_year_38  NUMBER,
+  policy_year_39  NUMBER,
+  policy_year_40  NUMBER,
+  policy_year_41  NUMBER,
+  policy_year_42  NUMBER,
+  policy_year_43  NUMBER,
+  policy_year_44  NUMBER,
+  policy_year_45  NUMBER,
+  policy_year_46  NUMBER,
+  policy_year_47  NUMBER,
+  policy_year_48  NUMBER,
+  policy_year_49  NUMBER,
+  policy_year_50  NUMBER,
+  policy_year_51  NUMBER,
+  policy_year_52  NUMBER,
+  policy_year_53  NUMBER,
+  policy_year_54  NUMBER,
+  policy_year_55  NUMBER,
+  policy_year_56  NUMBER,
+  policy_year_57  NUMBER,
+  policy_year_58  NUMBER,
+  policy_year_59  NUMBER,
+  policy_year_60  NUMBER,
+  policy_year_61  NUMBER,
+  policy_year_62  NUMBER,
+  policy_year_63  NUMBER,
+  policy_year_64  NUMBER,
+  policy_year_65  NUMBER,
+  policy_year_66  NUMBER,
+  policy_year_67  NUMBER,
+  policy_year_68  NUMBER,
+  policy_year_69  NUMBER,
+  policy_year_70  NUMBER,
+  policy_year_71  NUMBER,
+  policy_year_72  NUMBER,
+  policy_year_73  NUMBER,
+  policy_year_74  NUMBER,
+  policy_year_75  NUMBER,
+  policy_year_76  NUMBER,
+  policy_year_77  NUMBER,
+  policy_year_78  NUMBER,
+  policy_year_79  NUMBER,
+  policy_year_80  NUMBER,
+  policy_year_81  NUMBER,
+  policy_year_82  NUMBER,
+  policy_year_83  NUMBER,
+  policy_year_84  NUMBER,
+  policy_year_85  NUMBER,
+  policy_year_86  NUMBER,
+  policy_year_87  NUMBER,
+  policy_year_88  NUMBER,
+  policy_year_89  NUMBER,
+  policy_year_90  NUMBER,
+  policy_year_91  NUMBER,
+  policy_year_92  NUMBER,
+  policy_year_93  NUMBER,
+  policy_year_94  NUMBER,
+  policy_year_95  NUMBER,
+  policy_year_96  NUMBER,
+  policy_year_97  NUMBER,
+  policy_year_98  NUMBER,
+  policy_year_99  NUMBER,
+  policy_year_100 NUMBER
+)
+;
+alter table UPLOAD_RATES_INTERFACE_TABLE
+  add primary key (UPLOAD_ID);
+
+prompt
+prompt Creating table USER_COUNTRY_WISE
+prompt ================================
+prompt
+create table USER_COUNTRY_WISE
+(
+  userid           VARCHAR2(100) not null,
+  country_id       VARCHAR2(50) not null,
+  active           VARCHAR2(1),
+  createddate      TIMESTAMP(6),
+  createdby        VARCHAR2(50),
+  updateddate      TIMESTAMP(6),
+  updatedby        VARCHAR2(50),
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE,
+  user_type        VARCHAR2(1)
+)
+;
+alter table USER_COUNTRY_WISE
+  add constraint USER_COUNTRY_WISE_PK primary key (USERID, COUNTRY_ID);
+
+prompt
+prompt Creating table USER_PARTNER_BRANCH_MAP_T
+prompt ========================================
+prompt
+create table USER_PARTNER_BRANCH_MAP_T
+(
+  org_id           NUMBER not null,
+  user_id          NUMBER not null,
+  partner_id       NUMBER not null,
+  branch_id        NUMBER not null,
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE
+)
+;
+alter table USER_PARTNER_BRANCH_MAP_T
+  add constraint PK_USER_PARTNER_BRANCH_MAP_T primary key (ORG_ID, USER_ID, PARTNER_ID, BRANCH_ID);
+
+prompt
+prompt Creating table USER_PARTNER_MAPPING_T
+prompt =====================================
+prompt
+create table USER_PARTNER_MAPPING_T
+(
+  org_id           NUMBER,
+  mapping_id       NUMBER,
+  partner_id       NUMBER,
+  user_id          NUMBER,
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE
+)
+;
+alter table USER_PARTNER_MAPPING_T
+  add constraint FK_USER_PARTNER_MAPPING_T_USER foreign key (USER_ID)
+  references SM_USERS_T (USERID);
+alter table USER_PARTNER_MAPPING_T
+  add constraint FK_USER_PARTNER_PARTNER foreign key (ORG_ID, PARTNER_ID)
+  references AM_PARTNER_T (ORG_ID, PARTNER_ID);
+
+prompt
+prompt Creating table USER_PROJECT_T
+prompt =============================
+prompt
+create table USER_PROJECT_T
+(
+  org_id             NUMBER not null,
+  project_id         NUMBER not null,
+  project_name       VARCHAR2(200),
+  project_desc       VARCHAR2(200),
+  project_category   VARCHAR2(50),
+  project_type       VARCHAR2(20),
+  project_start_date DATE,
+  project_end_date   DATE,
+  created_by         VARCHAR2(50),
+  creation_date      DATE,
+  last_updated_by    VARCHAR2(50),
+  last_update_date   DATE
+)
+;
+alter table USER_PROJECT_T
+  add constraint PK_USER_PROJECT_T primary key (ORG_ID, PROJECT_ID);
+
+prompt
+prompt Creating table VEHICLE_MAKE_T
+prompt =============================
+prompt
+create table VEHICLE_MAKE_T
+(
+  make_code        NUMBER not null,
+  make_desc        VARCHAR2(50),
+  active           VARCHAR2(1),
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE
+)
+;
+alter table VEHICLE_MAKE_T
+  add constraint PK_VEHICLE_MAKE_T primary key (MAKE_CODE);
+
+prompt
+prompt Creating table VEHICLE_MODEL_T
+prompt ==============================
+prompt
+create table VEHICLE_MODEL_T
+(
+  make_code        NUMBER not null,
+  model_code       NUMBER not null,
+  model_desc       VARCHAR2(50),
+  active           VARCHAR2(1),
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE
+)
+;
+alter table VEHICLE_MODEL_T
+  add constraint PK_VEHICLE_MODEL_T primary key (MAKE_CODE, MODEL_CODE);
+alter table VEHICLE_MODEL_T
+  add foreign key (MAKE_CODE)
+  references VEHICLE_MAKE_T (MAKE_CODE);
+
+prompt
+prompt Creating table XBRL_USERS
+prompt =========================
+prompt
+create table XBRL_USERS
+(
+  userid          NVARCHAR2(20),
+  username        NVARCHAR2(100),
+  password        NVARCHAR2(20),
+  usertype        NVARCHAR2(50),
+  pageallow       NVARCHAR2(100),
+  managerid       NVARCHAR2(20) default 0 not null,
+  email           NVARCHAR2(50),
+  contactno       NUMBER,
+  externaluserid  INTEGER default 1,
+  imagepath       NVARCHAR2(30),
+  clientcode      INTEGER,
+  outlookpassword NVARCHAR2(100),
+  namedescription NVARCHAR2(100),
+  firstname       NVARCHAR2(500),
+  lastname        NVARCHAR2(500),
+  countrycode     NVARCHAR2(20),
+  userrole        NVARCHAR2(50),
+  entity_id       NUMBER,
+  terms_accepted  VARCHAR2(1),
+  creation_date   DATE
+)
+;
+
+prompt
+prompt Creating table ZP_PROJECT_STAGE_T
+prompt =================================
+prompt
+create table ZP_PROJECT_STAGE_T
+(
+  org_id           NUMBER not null,
+  project_id       NUMBER not null,
+  task_stage_id    NUMBER not null,
+  start_date       DATE,
+  end_date         DATE,
+  close_flag       VARCHAR2(5),
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE,
+  stage_closed_by  VARCHAR2(100)
+)
+;
+alter table ZP_PROJECT_STAGE_T
+  add constraint PK_ZP_PROJECT_STAGE primary key (ORG_ID, PROJECT_ID, TASK_STAGE_ID);
+
+prompt
+prompt Creating table ZP_PROJECT_TASK_GROUP_T
+prompt ======================================
+prompt
+create table ZP_PROJECT_TASK_GROUP_T
+(
+  org_id           NUMBER not null,
+  project_id       NUMBER not null,
+  task_group_id    NUMBER not null,
+  group_name       VARCHAR2(50),
+  active           VARCHAR2(1),
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE
+)
+;
+alter table ZP_PROJECT_TASK_GROUP_T
+  add constraint PK_PROJECT_TASK_GROUP_T primary key (ORG_ID, PROJECT_ID, TASK_GROUP_ID);
+
+prompt
+prompt Creating table ZP_PROJECT_TEAM_T
+prompt ================================
+prompt
+create table ZP_PROJECT_TEAM_T
+(
+  org_id           NUMBER not null,
+  project_id       NUMBER not null,
+  team_id          NUMBER not null,
+  user_id          NUMBER,
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE
+)
+;
+alter table ZP_PROJECT_TEAM_T
+  add constraint PK_PROJECT_TEAM_T primary key (ORG_ID, PROJECT_ID, TEAM_ID);
+
+prompt
+prompt Creating table ZP_SUPERVISOR_HIERARCHY_T
+prompt ========================================
+prompt
+create table ZP_SUPERVISOR_HIERARCHY_T
+(
+  org_id               NUMBER not null,
+  h_id                 NUMBER not null,
+  user_id              NUMBER,
+  supervisor_id        NUMBER,
+  effective_start_date DATE,
+  effective_end_date   DATE,
+  created_by           VARCHAR2(50),
+  creation_date        DATE,
+  last_updated_by      VARCHAR2(50),
+  last_update_date     DATE
+)
+;
+alter table ZP_SUPERVISOR_HIERARCHY_T
+  add constraint PK_SUPERVISOR_HIERARCHY_T primary key (ORG_ID, H_ID);
+
+prompt
+prompt Creating table ZP_TASK_CC_USER_T
+prompt ================================
+prompt
+create table ZP_TASK_CC_USER_T
+(
+  org_id           NUMBER not null,
+  project_id       NUMBER not null,
+  task_id          NUMBER not null,
+  cc_user_id       NUMBER not null,
+  created_by       VARCHAR2(50),
+  creation_date    DATE,
+  last_updated_by  VARCHAR2(50),
+  last_update_date DATE
+)
+;
+alter table ZP_TASK_CC_USER_T
+  add constraint PK_TASK_CC_USER_T primary key (ORG_ID, PROJECT_ID, TASK_ID, CC_USER_ID);
+
+prompt
+prompt Creating table ZP_TASK_STAGE_MAPPING_T
+prompt ======================================
+prompt
+create table ZP_TASK_STAGE_MAPPING_T
+(
+  org_id                  NUMBER not null,
+  project_id              NUMBER not null,
+  task_id                 NUMBER not null,
+  task_stage_id           NUMBER not null,
+  start_date              DATE,
+  end_date                DATE,
+  close_flag              VARCHAR2(5),
+  stage_closed_by         VARCHAR2(100),
+  created_by              VARCHAR2(50),
+  creation_date           DATE,
+  last_updated_by         VARCHAR2(50),
+  last_update_date        DATE,
+  project_mapped_stage_id NUMBER
+)
+;
+alter table ZP_TASK_STAGE_MAPPING_T
+  add constraint PK_ZP_TASK_STAGE_MAP primary key (ORG_ID, PROJECT_ID, TASK_ID, TASK_STAGE_ID);
+
+prompt
+prompt Creating table ZP_USER_TASK_UPDATE_T
+prompt ====================================
+prompt
+create table ZP_USER_TASK_UPDATE_T
+(
+  org_id              NUMBER not null,
+  project_id          NUMBER not null,
+  task_id             NUMBER not null,
+  task_update_id      NUMBER not null,
+  update_summary      VARCHAR2(200),
+  upadte_desc         VARCHAR2(200),
+  start_date          DATE,
+  end_date            DATE,
+  created_by          VARCHAR2(50),
+  creation_date       DATE,
+  last_updated_by     VARCHAR2(50),
+  last_update_date    DATE,
+  file_path           VARCHAR2(200),
+  is_system_generated VARCHAR2(2),
+  re_assignee_id      NUMBER
+)
+;
+alter table ZP_USER_TASK_UPDATE_T
+  add constraint PK_TAS_UPDATE_T primary key (ORG_ID, PROJECT_ID, TASK_ID, TASK_UPDATE_ID);
